@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "748998514279",
+    "project_id": "smschatwithmwwm",
+    "storage_bucket": "smschatwithmwwm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748998514279:android:d0a3cddd38b84c4ddba6c2",
+        "android_client_info": {
+          "package_name": "jx.lessons.firebasesmschatwithmvvm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748998514279-761n8n58vb3n0b8uqh8nup3p1m2c4b0o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "jx.lessons.firebasesmschatwithmvvm",
+            "certificate_hash": "906ff2323dc3b941cedd69b8fae9a5ba1e13b7ca"
+          }
+        },
+        {
+          "client_id": "748998514279-stv9h8pc4lo6hhh4qpkoo2e7h8tlvh93.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOxxkrXf_P0K4M_wXaKfOk8SDMRMesmIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748998514279-stv9h8pc4lo6hhh4qpkoo2e7h8tlvh93.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
