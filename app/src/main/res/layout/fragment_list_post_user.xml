@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fullLayout"
-    tools:context=".presentation.listpostuser.ListPostUserFragment">
+    tools:context=".presentation.mainActivity.listpostuser.ListPostUserFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"

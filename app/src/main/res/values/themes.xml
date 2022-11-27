@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.FirebaseSmsChatWithMvvm" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
@@ -15,25 +15,29 @@
     </style>
     <style name="DescStyle">
         <item name="android:fontFamily">@font/titillium_web_regular</item>
-        <item name="android:textSize">14dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:lineSpacingExtra">4dp</item>
     </style>
 
     <style name="TextStyle">
         <item name="android:fontFamily">@font/titillium_web_regular</item>
-        <item name="android:textSize">14dp</item>
+        <item name="android:textSize">14sp</item>
     </style>
     <style name="ChipTextStyle">
         <item name="android:fontFamily">@font/titillium_web_regular</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">12sp</item>
     </style>
     <style name="TitleStyle">
         <item name="android:fontFamily">@font/titillium_web_bold</item>
-        <item name="android:textSize">18dp</item>
+        <item name="android:textSize">18sp</item>
     </style>
     <style name="SubTitleStyle">
         <item name="android:fontFamily">@font/titillium_web_bold</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="TabLayout" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 </resources>

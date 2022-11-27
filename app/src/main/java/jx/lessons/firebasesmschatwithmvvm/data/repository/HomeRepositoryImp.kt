@@ -39,7 +39,7 @@ class HomeRepositoryImp @Inject constructor(
                 })
         }
     }
-    override fun getClickedUsers(randomKey:String,result: (UiState<ArrayList<Likes>>) -> Unit) {
+    override fun getClickedLikeUsers(randomKey:String, result: (UiState<ArrayList<Likes>>) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             val list = ArrayList<Likes>()
             myRef.getReference(FirebaseRealtimeDatabaseConstants.path_posts).child(randomKey).child("likeS")
@@ -62,7 +62,7 @@ class HomeRepositoryImp @Inject constructor(
 
     override fun PlusLike(list:ArrayList<Likes>,randomKey:String,emailAddress: String, result: (UiState<Boolean>) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
-            myRef.getReference(FirebaseRealtimeDatabaseConstants.path_posts).child(randomKey).child("likeS").child((list.size+1).toString()).setValue(Likes(emailAddress))
+            myRef.getReference(FirebaseRealtimeDatabaseConstants.path_posts).child(randomKey).child("likeS")
 
         }
     }
@@ -72,20 +72,7 @@ class HomeRepositoryImp @Inject constructor(
             myRef.getReference(FirebaseRealtimeDatabaseConstants.path_posts).child(randomKey).child("likeS")
                 .addValueEventListener(object :ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        for (i in 0 until snapshot.childrenCount){
-                            val likes:Likes = snapshot.child(i.toString()).getValue(Likes::class.java)!!
-                            if (likes.email==emailAddress){
-                                myRef.getReference(FirebaseRealtimeDatabaseConstants.path_posts).child(randomKey).child("likeS").child(i.toString())
-                                    .ref.removeValue()
-                                    .addOnCompleteListener {
-                                        result.invoke(UiState.Success(true))
-                                    }
-                                    .addOnFailureListener {
-                                        result.invoke(UiState.Failure("$it"))
-                                    }
-                                break
-                            }
-                        }
+
                     }
 
                     override fun onCancelled(error: DatabaseError) {

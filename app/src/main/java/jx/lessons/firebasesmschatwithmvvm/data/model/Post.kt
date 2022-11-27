@@ -1,8 +1,8 @@
 package jx.lessons.firebasesmschatwithmvvm.data.model
 
 class Post {
-    lateinit var comments: ArrayList<Comments>
     lateinit var likeS: ArrayList<Likes>
+    lateinit var comments: ArrayList<Comments>
     var postDescription: String = ""
     var postTitle: String = ""
     var userEmail: String = ""
