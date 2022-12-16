@@ -9,7 +9,7 @@ import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
 import jx.lessons.firebasesmschatwithmvvm.data.utils.getEmail
 import jx.lessons.firebasesmschatwithmvvm.data.utils.snackbar
 import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentListPostUserBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.BaseFragment
+import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
 import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.person.PersonViewModel
 import kotlinx.coroutines.launch
 

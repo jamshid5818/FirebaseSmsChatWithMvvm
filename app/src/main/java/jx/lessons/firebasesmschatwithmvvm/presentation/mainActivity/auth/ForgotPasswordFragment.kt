@@ -5,7 +5,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import jx.lessons.firebasesmschatwithmvvm.R
 import jx.lessons.firebasesmschatwithmvvm.data.utils.*
 import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentForgotPasswordBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.BaseFragment
+import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
 
 @AndroidEntryPoint
 class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>(FragmentForgotPasswordBinding::inflate) {

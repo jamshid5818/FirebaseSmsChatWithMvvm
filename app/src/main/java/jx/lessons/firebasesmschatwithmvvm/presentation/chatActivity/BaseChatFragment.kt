@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation
+package jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,12 +11,11 @@ import androidx.viewbinding.ViewBinding
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
-abstract class BaseFragment<VB : ViewBinding>(
+abstract class BaseChatFragment<VB : ViewBinding>(
     private val inflate: Inflate<VB>
 ) : Fragment() {
     private var _binding: VB? = null
     val binding get() = _binding!!
-    lateinit var navController: NavController
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,7 +27,6 @@ abstract class BaseFragment<VB : ViewBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = findNavController()
         onViewCreate()
     }
 

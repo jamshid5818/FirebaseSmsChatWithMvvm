@@ -1,7 +1,10 @@
 package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -11,6 +14,7 @@ import jx.lessons.firebasesmschatwithmvvm.R
 import jx.lessons.firebasesmschatwithmvvm.data.utils.SharedPref
 import jx.lessons.firebasesmschatwithmvvm.data.utils.snackbar
 import jx.lessons.firebasesmschatwithmvvm.databinding.ActivityMainBinding
+import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.ChatActivity
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -67,5 +71,22 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.main_nav_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when(id){
+            R.id.gotochat->{
+                val intent = Intent(this, ChatActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

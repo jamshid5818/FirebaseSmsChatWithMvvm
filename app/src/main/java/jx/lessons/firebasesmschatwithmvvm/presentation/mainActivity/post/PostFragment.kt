@@ -10,7 +10,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import jx.lessons.firebasesmschatwithmvvm.data.utils.*
 import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentPostBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.BaseFragment
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +17,7 @@ import jx.lessons.firebasesmschatwithmvvm.R
 import jx.lessons.firebasesmschatwithmvvm.data.model.Comments
 import jx.lessons.firebasesmschatwithmvvm.data.model.Likes
 import jx.lessons.firebasesmschatwithmvvm.data.model.Post
+import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
 
 @AndroidEntryPoint
 class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::inflate) {
@@ -44,8 +44,9 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         val likes = ArrayList<Likes>()
         binding.publishPostBtn.setOnClickListener {
             if (validation()){
-                sharedPref.getEmail()?.let { Comments(it, "") }?.let { comments.add(it) }
-                sharedPref.getEmail()?.let { Likes(it) }?.let { likes.add(it) }
+                var unixTime = System.currentTimeMillis()
+                sharedPref.getEmail()?.let { Comments(it, "",unixTime=unixTime) }?.let { comments.add(it) }
+                sharedPref.getEmail()?.let { Likes(it,unixTime) }?.let { likes.add(it) }
                 viewModel.upLoadPost(
                     Post(
                         comments,

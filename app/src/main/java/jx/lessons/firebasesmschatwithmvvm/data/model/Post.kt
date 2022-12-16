@@ -9,6 +9,7 @@ class Post {
     var imageUri: String = ""
     lateinit var tagsList: ArrayList<String>
     var randomKey:String = ""
+    var unixTime:Long=0
 
     constructor(
         comments: ArrayList<Comments>,
@@ -18,7 +19,8 @@ class Post {
         userEmail: String,
         imageUri: String,
         tagsList: ArrayList<String>,
-        randomkey: String
+        randomkey: String,
+        unixTime:Long
     ) {
         this.comments = comments
         this.likeS = likes
@@ -28,6 +30,7 @@ class Post {
         this.imageUri = imageUri
         this.tagsList = tagsList
         this.randomKey = randomkey
+        this.unixTime = unixTime
     }
 
     constructor()

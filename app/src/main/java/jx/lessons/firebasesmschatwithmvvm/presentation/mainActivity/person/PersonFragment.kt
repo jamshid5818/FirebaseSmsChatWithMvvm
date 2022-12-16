@@ -1,7 +1,5 @@
 package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.person
 
-
-
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,7 +10,7 @@ import jx.lessons.firebasesmschatwithmvvm.data.utils.SharedPref
 import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
 import jx.lessons.firebasesmschatwithmvvm.data.utils.snackbar
 import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentPersonBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.BaseFragment
+import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

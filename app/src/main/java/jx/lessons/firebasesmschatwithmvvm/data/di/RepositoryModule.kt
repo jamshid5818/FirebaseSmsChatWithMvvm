@@ -1,6 +1,5 @@
 package jx.lessons.firebasesmschatwithmvvm.data.di
 
-import android.content.SharedPreferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.StorageReference
@@ -9,6 +8,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import jx.lessons.firebasesmschatwithmvvm.data.repository.*
+import jx.lessons.firebasesmschatwithmvvm.data.repository.chatAc.global.GlobalRepository
+import jx.lessons.firebasesmschatwithmvvm.data.repository.chatAc.global.GlobalRepositoryImp
+import jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc.*
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -27,21 +29,28 @@ object RepositoryModule {
     fun providePostRepostiroy(
         myRef: FirebaseDatabase,
         storageReference: StorageReference
-    ):PostRepository{
+    ): PostRepository {
         return PostRepositoryImp(myRef,storageReference)
     }
     @Provides
     @Singleton
     fun providesHomeRepository(
         myRef: FirebaseDatabase
-    ):HomeRepository{
+    ): HomeRepository {
         return  HomeRepositoryImp(myRef)
     }
     @Provides
     @Singleton
     fun providesPersonRespository(
         myRef: FirebaseDatabase
-    ):PersonRepostiroy{
+    ): PersonRepostiroy {
         return PersonRepositoryImp(myRef)
+    }
+    @Provides
+    @Singleton
+    fun providesButilkaRepository(
+        myRef: FirebaseDatabase
+    ): GlobalRepository {
+        return GlobalRepositoryImp(myRef)
     }
 }

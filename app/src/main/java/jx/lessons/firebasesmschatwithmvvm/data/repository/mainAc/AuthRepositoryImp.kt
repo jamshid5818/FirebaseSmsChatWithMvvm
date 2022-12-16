@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.data.repository
+package jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc
 
 import com.google.firebase.auth.*
 import com.google.firebase.database.FirebaseDatabase
@@ -19,6 +19,7 @@ class AuthRepositoryImp @Inject constructor(
         emailFireKey:String,
         result: (UiState<String>) -> Unit
     ) {
+        var unixTime = System.currentTimeMillis()
         CoroutineScope(Dispatchers.IO).launch{
             auth.createUserWithEmailAndPassword(userInfo.email,userInfo.password)
                 .addOnCompleteListener { task ->

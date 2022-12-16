@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.data.repository
+package jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc
 
 import jx.lessons.firebasesmschatwithmvvm.data.model.Likes
 import jx.lessons.firebasesmschatwithmvvm.data.model.Post

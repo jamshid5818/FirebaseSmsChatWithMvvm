@@ -1,9 +1,8 @@
-package jx.lessons.firebasesmschatwithmvvm.data.repository
+package jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc
 
 import android.net.Uri
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.StorageReference
-import jx.lessons.firebasesmschatwithmvvm.data.model.Comments
 import jx.lessons.firebasesmschatwithmvvm.data.model.Post
 import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
 import kotlinx.coroutines.CoroutineScope
@@ -15,7 +14,7 @@ import javax.inject.Inject
 class PostRepositoryImp @Inject constructor(
     val myRef: FirebaseDatabase,
     var storageReference: StorageReference
-) : PostRepository{
+) : PostRepository {
 
     override fun upLoadPost(post: Post, imageUri: Uri, result: (UiState<String>) -> Unit) {
         upLoad(post, imageUri, result)

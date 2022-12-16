@@ -1,17 +1,14 @@
 package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.home
 
-import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenCreated
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import jx.lessons.firebasesmschatwithmvvm.R
 import jx.lessons.firebasesmschatwithmvvm.data.model.Likes
 import jx.lessons.firebasesmschatwithmvvm.data.utils.*
 import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentHomeBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.BaseFragment
-import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.ChatActivity
+import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -29,16 +26,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         binding.swipe.setOnRefreshListener {
             viewModel.getAllPost()
         }
-        binding.homeToChat.setOnClickListener {
-            val intent = Intent(requireActivity(),ChatActivity::class.java)
-            startActivity(intent)
-            requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-        }
     }
 
     private fun observer() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.whenCreated {
                 viewModel.getAllPost.observe(viewLifecycleOwner){state->
                     when(state){
                         is UiState.Loading->{
@@ -55,11 +45,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         }
                     }
                 }
-            }
-        }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.whenCreated {
                 viewModel.getClickedLikeUsers.observe(viewLifecycleOwner){state->
                     when(state){
                         is  UiState.Loading->{
@@ -79,11 +65,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         }
                     }
                 }
-            }
-        }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.whenCreated {
                 viewModel.setLikePost.observe(viewLifecycleOwner){state->
                     when(state){
                         is  UiState.Loading->{
@@ -97,10 +79,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         }
                     }
                 }
-            }
-        }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.whenCreated {
                 viewModel.setMinusLike.observe(viewLifecycleOwner){state->
                     when(state){
                         is  UiState.Loading->{
@@ -114,8 +92,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         }
                     }
                 }
-            }
-        }
     }
 
     override fun clickedLike(randomKey:String) {

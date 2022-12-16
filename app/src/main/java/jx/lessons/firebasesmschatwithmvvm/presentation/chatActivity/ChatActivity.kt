@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import jx.lessons.firebasesmschatwithmvvm.R
 import jx.lessons.firebasesmschatwithmvvm.databinding.ActivityChatBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.butilka.ButilkaChatFragment
+import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.random.RandomChatFragment
 import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.global.GlobalChatFragment
 import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.kontakt.ContactChatFragment
 
+@AndroidEntryPoint
 class ChatActivity : AppCompatActivity() {
     lateinit var binding:ActivityChatBinding
     private val adapter by lazy{
@@ -41,8 +43,14 @@ class ChatActivity : AppCompatActivity() {
     private fun setupViewPager(viewPager: ViewPager2){
         adapter.addFragment(GlobalChatFragment(), "Global chat")
         adapter.addFragment(ContactChatFragment(), "Shaxsiy chatlar")
-        adapter.addFragment(ButilkaChatFragment(), "Chat Butilka")
+        adapter.addFragment(RandomChatFragment(), "Chat Butilka")
         viewPager.adapter=adapter
         viewPager.offscreenPageLimit=1
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.slide_out_right,R.anim.slide_out_left)
+    }
+
 }

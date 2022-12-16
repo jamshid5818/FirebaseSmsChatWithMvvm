@@ -1,11 +1,9 @@
-package jx.lessons.firebasesmschatwithmvvm.data.repository
+package jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc
 
-import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
 import jx.lessons.firebasesmschatwithmvvm.data.model.Post
 import jx.lessons.firebasesmschatwithmvvm.data.model.UserInfo
 import jx.lessons.firebasesmschatwithmvvm.data.utils.FirebaseRealtimeDatabaseConstants
@@ -17,7 +15,7 @@ import javax.inject.Inject
 
 class PersonRepositoryImp @Inject constructor(
     val myRef: FirebaseDatabase,
-) : PersonRepostiroy{
+) : PersonRepostiroy {
     override fun getPosts(emailAddress: String, result: (UiState<ArrayList<Post>>) -> Unit) {
         val list = ArrayList<Post>()
         CoroutineScope(Dispatchers.Default).launch{

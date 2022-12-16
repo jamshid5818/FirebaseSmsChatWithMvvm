@@ -1,6 +1,5 @@
-package jx.lessons.firebasesmschatwithmvvm.data.repository
+package jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc
 
-import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -11,15 +10,12 @@ import jx.lessons.firebasesmschatwithmvvm.data.utils.FirebaseRealtimeDatabaseCon
 import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HomeRepositoryImp @Inject constructor(
     private val myRef: FirebaseDatabase,
-):HomeRepository{
+): HomeRepository {
     override fun getAllPost(result: (UiState<ArrayList<Post>>) -> Unit) {
         val list = ArrayList<Post>()
         CoroutineScope(Dispatchers.IO).launch {

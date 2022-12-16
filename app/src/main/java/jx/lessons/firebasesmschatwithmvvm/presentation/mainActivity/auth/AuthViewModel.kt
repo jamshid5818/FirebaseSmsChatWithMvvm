@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jx.lessons.firebasesmschatwithmvvm.data.model.UserInfo
-import jx.lessons.firebasesmschatwithmvvm.data.repository.AuthRepository
+import jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc.AuthRepository
 import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

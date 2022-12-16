@@ -12,7 +12,8 @@ import jx.lessons.firebasesmschatwithmvvm.R
 import jx.lessons.firebasesmschatwithmvvm.data.model.UserInfo
 import jx.lessons.firebasesmschatwithmvvm.data.utils.*
 import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentRegisterBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.BaseFragment
+import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
+
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
     val viewModel: AuthViewModel by viewModels()
@@ -29,12 +30,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
         binding.registerBtn.setOnClickListener {
             if (validation()){
+                var unixTime=System.currentTimeMillis()
                 viewModel.register(UserInfo(
                     email = binding.editEmailText.text.toString(),
                     name = binding.editNameText.text.toString(),
                     gender = gender!!,
                     password = binding.editpasswordText.text.toString(),
-                    age = binding.spinnerAge.selectedItem.toString().toInt()
+                    age = binding.spinnerAge.selectedItem.toString().toInt(),
+                    unixTime = unixTime
                 ),
                     viewModel.firebasePathgmail(binding.editEmailText.text.toString()))
             }
@@ -112,7 +115,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     binding.registerBtn.text = "Register"
                     binding.registerProgress.gone()
                     snackbar("Registration Succes", binding.registerView)
-                    shared.setEmail(binding.editEmailText.text.toString())
+                    shared.setEmail(viewModel.firebasePathgmail(binding.editEmailText.text.toString()))
                     findNavController().navigate(R.id.action_registerFragment_to_personFragment)
                 }
             }

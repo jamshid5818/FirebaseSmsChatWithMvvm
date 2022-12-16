@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jx.lessons.firebasesmschatwithmvvm.data.model.Post
 import jx.lessons.firebasesmschatwithmvvm.data.model.UserInfo
-import jx.lessons.firebasesmschatwithmvvm.data.repository.PersonRepostiroy
+import jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc.PersonRepostiroy
 import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -6,7 +6,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import jx.lessons.firebasesmschatwithmvvm.R
 import jx.lessons.firebasesmschatwithmvvm.data.utils.*
 import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentLoginBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.BaseFragment
+import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
@@ -73,7 +73,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                     binding.loginBtn.text = "Login"
                     binding.loginProgress.gone()
                     toast(state.data)
-                    shared.setEmail(binding.emailEt.text.toString())
+                    shared.setEmail(viewModel.firebasePathgmail(binding.emailEt.text.toString()))
                     findNavController().navigate(R.id.action_loginFragment_to_personFragment)
                 }
             }
