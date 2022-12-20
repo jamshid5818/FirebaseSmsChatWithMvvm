@@ -7,10 +7,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import jx.lessons.firebasesmschatwithmvvm.data.repository.*
-import jx.lessons.firebasesmschatwithmvvm.data.repository.chatAc.global.GlobalRepository
-import jx.lessons.firebasesmschatwithmvvm.data.repository.chatAc.global.GlobalRepositoryImp
-import jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc.*
+import jx.lessons.firebasesmschatwithmvvm.domain.chatAc.global.GlobalRepository
+import jx.lessons.firebasesmschatwithmvvm.domain.chatAc.global.GlobalRepositoryImp
+import jx.lessons.firebasesmschatwithmvvm.domain.chatAc.random.RandomChatRepository
+import jx.lessons.firebasesmschatwithmvvm.domain.chatAc.random.RandomChatRepositoryImp
+import jx.lessons.firebasesmschatwithmvvm.domain.mainAc.*
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -42,15 +43,23 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun providesPersonRespository(
-        myRef: FirebaseDatabase
+        myRef: FirebaseDatabase,
+        auth: FirebaseAuth
     ): PersonRepostiroy {
-        return PersonRepositoryImp(myRef)
+        return PersonRepositoryImp(auth,myRef)
     }
     @Provides
     @Singleton
-    fun providesButilkaRepository(
+    fun providesGlobalRepository(
         myRef: FirebaseDatabase
     ): GlobalRepository {
         return GlobalRepositoryImp(myRef)
+    }
+    @Provides
+    @Singleton
+    fun providesRandomRepository(
+        myRef: FirebaseDatabase
+    ):RandomChatRepository{
+        return RandomChatRepositoryImp(myRef)
     }
 }

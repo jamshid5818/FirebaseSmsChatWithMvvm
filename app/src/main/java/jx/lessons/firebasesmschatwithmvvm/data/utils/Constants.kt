@@ -7,9 +7,10 @@ object SharedPrefConstants {
 object FirebaseRealtimeDatabaseConstants{
     val path_users = "Users"
     val path_posts = "posts"
+    val path_random= "random"
+    val path_global= "global"
 }
 object getStorageImage{
     const val error = 64
-
 }
 

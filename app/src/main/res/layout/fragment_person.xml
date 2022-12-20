@@ -88,8 +88,10 @@
                 android:id="@+id/profileGender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/profileAge"
-                app:layout_constraintStart_toEndOf="@+id/gender"
+                app:layout_constraintTop_toTopOf="@id/gender"
+                app:layout_constraintBottom_toBottomOf="@id/gender"
+                app:layout_constraintStart_toEndOf="@id/gender"
+                app:layout_goneMarginStart="10dp"
                 android:layout_marginStart="6dp"
                 android:textColor="@color/black"
                 android:textSize="22dp"
@@ -115,6 +117,14 @@
                 android:layout_marginHorizontal="12dp"
                 android:numColumns="2"
                 android:paddingHorizontal="12dp"
+                />
+            <ImageView
+                android:id="@+id/exit"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_baseline_exit_to_app_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

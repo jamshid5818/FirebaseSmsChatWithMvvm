@@ -20,10 +20,6 @@ class ChatAdapter(var list:MutableList<Sms>,var context: Context):RecyclerView.A
     private val shared by lazy {
         SharedPref(context)
     }
-    fun addUser(data:Sms){
-        this.list.add(data)
-        notifyItemInserted(list.size-1)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 1) {

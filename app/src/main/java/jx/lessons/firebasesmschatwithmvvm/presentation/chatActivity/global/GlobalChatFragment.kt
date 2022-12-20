@@ -73,13 +73,7 @@ class GlobalChatFragment : BaseChatFragment<FragmentGlobalChatBinding>(FragmentG
                     toast("Failure send")
                 }
                 is UiState.Success->{
-//                    if (shared.getEmail()==""){
-//                        toast("Oldin ro'yxatdan o'tishingiz kerak")
-//                    }else{
-//                        shared.getGender()
-//                            ?.let { Sms(sms, shared.getEmail()!!, it,unixTime) }
-//                            ?.let { adapter.addUser(it) }
-//                    }
+                    viewModel.getAllSms()
                 }
             }
         }

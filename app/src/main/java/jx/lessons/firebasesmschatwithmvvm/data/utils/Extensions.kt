@@ -13,7 +13,6 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import jx.lessons.firebasesmschatwithmvvm.R
-import javax.security.auth.callback.Callback
 
 
 fun View.gone(){
@@ -68,6 +67,8 @@ fun Context.createDialog(layout: Int, cancelable: Boolean): Dialog {
     )
     dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     dialog.setCancelable(cancelable)
+    dialog.create()
+    dialog.show()
     return dialog
 }
 
@@ -79,13 +80,19 @@ val Int.pxToDp: Int
 
 fun String.isValidEmail() =
     isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
-fun AppCompatActivity.snackbar(message:String,view:View){
-    Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
-}
-fun Fragment.snackbar(message:String,view:View){
+fun snackbar(message:String,view:View){
     Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
 }
 fun Fragment.getEmail(context: Context):String{
     val sharedPref = SharedPref(context)
     return sharedPref.getEmail().toString()
+}
+fun firebasePathgmail(email: String):String{
+    var email2 =""
+    email.forEachIndexed { index, letter ->
+        if (letter.isLetter() || letter.isDigit()) {
+            email2+=email[index]
+        }
+    }
+    return email2
 }

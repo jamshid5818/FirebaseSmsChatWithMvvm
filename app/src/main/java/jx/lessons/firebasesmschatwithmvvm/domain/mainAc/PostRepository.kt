@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc
+package jx.lessons.firebasesmschatwithmvvm.domain.mainAc
 
 import android.net.Uri
 import jx.lessons.firebasesmschatwithmvvm.data.model.Comments

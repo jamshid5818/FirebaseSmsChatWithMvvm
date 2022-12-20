@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.data.repository.chatAc.global
+package jx.lessons.firebasesmschatwithmvvm.domain.chatAc.global
 
 import jx.lessons.firebasesmschatwithmvvm.data.model.Sms
 import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState

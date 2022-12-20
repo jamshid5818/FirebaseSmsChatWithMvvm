@@ -30,7 +30,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
         binding.registerBtn.setOnClickListener {
             if (validation()){
-                var unixTime=System.currentTimeMillis()
+                val unixTime=System.currentTimeMillis()
                 viewModel.register(UserInfo(
                     email = binding.editEmailText.text.toString(),
                     name = binding.editNameText.text.toString(),
@@ -39,7 +39,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     age = binding.spinnerAge.selectedItem.toString().toInt(),
                     unixTime = unixTime
                 ),
-                    viewModel.firebasePathgmail(binding.editEmailText.text.toString()))
+                    firebasePathgmail(binding.editEmailText.text.toString())
+                )
             }
         }
         binding.female.setOnClickListener {
@@ -115,7 +116,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     binding.registerBtn.text = "Register"
                     binding.registerProgress.gone()
                     snackbar("Registration Succes", binding.registerView)
-                    shared.setEmail(viewModel.firebasePathgmail(binding.editEmailText.text.toString()))
+                    shared.setEmail(firebasePathgmail(binding.editEmailText.text.toString()))
+                    gender?.let { shared.setGender(it) }
                     findNavController().navigate(R.id.action_registerFragment_to_personFragment)
                 }
             }

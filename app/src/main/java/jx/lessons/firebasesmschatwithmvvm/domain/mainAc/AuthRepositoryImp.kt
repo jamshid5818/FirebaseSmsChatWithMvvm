@@ -1,10 +1,18 @@
-package jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc
+package jx.lessons.firebasesmschatwithmvvm.domain.mainAc
 
+import android.util.Log
 import com.google.firebase.auth.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.firestore.auth.User
+import jx.lessons.firebasesmschatwithmvvm.data.model.Post
 import jx.lessons.firebasesmschatwithmvvm.data.model.UserInfo
 import jx.lessons.firebasesmschatwithmvvm.data.utils.FirebaseRealtimeDatabaseConstants
 import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
+import jx.lessons.firebasesmschatwithmvvm.data.utils.firebasePathgmail
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,7 +27,6 @@ class AuthRepositoryImp @Inject constructor(
         emailFireKey:String,
         result: (UiState<String>) -> Unit
     ) {
-        var unixTime = System.currentTimeMillis()
         CoroutineScope(Dispatchers.IO).launch{
             auth.createUserWithEmailAndPassword(userInfo.email,userInfo.password)
                 .addOnCompleteListener { task ->
@@ -69,7 +76,18 @@ class AuthRepositoryImp @Inject constructor(
             auth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        result.invoke(UiState.Success("Succesfully"))
+                        myRef.getReference(FirebaseRealtimeDatabaseConstants.path_users)
+                            .child(firebasePathgmail(email)).child("userInfo").addValueEventListener(object :ValueEventListener{
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    val userInfo: UserInfo = snapshot.getValue(UserInfo::class.java)!!
+                                    result.invoke(UiState.Success(userInfo.gender))
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    result.invoke(UiState.Failure(error.message))
+                                }
+
+                            })
                     }
                 }.addOnFailureListener {
                     result.invoke(UiState.Failure("Authentication failed, Check email and password"))
@@ -89,13 +107,6 @@ class AuthRepositoryImp @Inject constructor(
                 }.addOnFailureListener {
                     result.invoke(UiState.Failure("Authentication failed, Check email"))
                 }
-        }
-    }
-
-    override fun logout(result: () -> Unit) {
-        CoroutineScope(Dispatchers.Default).launch {
-            auth.signOut()
-                result.invoke()
         }
     }
 }

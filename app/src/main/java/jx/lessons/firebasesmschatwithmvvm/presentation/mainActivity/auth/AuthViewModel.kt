@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jx.lessons.firebasesmschatwithmvvm.data.model.UserInfo
-import jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc.AuthRepository
+import jx.lessons.firebasesmschatwithmvvm.domain.mainAc.AuthRepository
 import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -68,18 +68,5 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun logout(result: () -> Unit){
-        viewModelScope.launch(Dispatchers.Main){
-            repository.logout(result)
-        }
-    }
-    fun firebasePathgmail(email:String):String{
-        var email2 =""
-        email.forEachIndexed { index, letter ->
-            if (letter.isLetter() || letter.isDigit()) {
-                email2+=email[index]
-            }
-        }
-        return email2
-    }
+
 }

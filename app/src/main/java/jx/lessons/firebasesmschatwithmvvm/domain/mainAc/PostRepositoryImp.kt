@@ -1,10 +1,11 @@
-package jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc
+package jx.lessons.firebasesmschatwithmvvm.domain.mainAc
 
 import android.net.Uri
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.StorageReference
 import jx.lessons.firebasesmschatwithmvvm.data.model.Post
 import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
+import jx.lessons.firebasesmschatwithmvvm.domain.mainAc.PostRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

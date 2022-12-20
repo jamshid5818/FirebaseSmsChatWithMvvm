@@ -2,7 +2,6 @@ package jx.lessons.firebasesmschatwithmvvm.data.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.google.android.gms.common.util.SharedPreferencesUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database

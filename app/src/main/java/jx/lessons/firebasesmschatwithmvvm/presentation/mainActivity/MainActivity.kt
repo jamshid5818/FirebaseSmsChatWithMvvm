@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        snackbar("Assalomu alekum ", binding.mainLayout)
         val navController = findNavController(R.id.main_nav_fragment)
         binding.bottomNavMenu.background = null
         binding.bottomNavMenu.menu.getItem(2).isEnabled = false
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.likeFragment)
                 }
                 R.id.miPerson -> {
-                    if (!sharedPref.getEmail().toString().isEmpty()) {
+                    if (sharedPref.getEmail().toString().isNotEmpty()) {
                         navController.navigate(R.id.personFragment)
                     }else{
                         navController.navigate(R.id.registerFragment)

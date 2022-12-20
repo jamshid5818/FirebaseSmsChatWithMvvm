@@ -73,7 +73,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                     binding.loginBtn.text = "Login"
                     binding.loginProgress.gone()
                     toast(state.data)
-                    shared.setEmail(viewModel.firebasePathgmail(binding.emailEt.text.toString()))
+                    shared.setEmail(firebasePathgmail(binding.emailEt.text.toString()))
+                    shared.setGender(state.data.toString())
+                    toast(state.data.toString())
                     findNavController().navigate(R.id.action_loginFragment_to_personFragment)
                 }
             }

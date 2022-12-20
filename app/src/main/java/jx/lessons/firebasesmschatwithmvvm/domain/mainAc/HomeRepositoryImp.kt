@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc
+package jx.lessons.firebasesmschatwithmvvm.domain.mainAc
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

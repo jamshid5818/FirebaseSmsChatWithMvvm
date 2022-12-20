@@ -1,6 +1,5 @@
-package jx.lessons.firebasesmschatwithmvvm.data.repository.chatAc.global
+package jx.lessons.firebasesmschatwithmvvm.domain.chatAc.global
 
-import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -10,7 +9,6 @@ import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 

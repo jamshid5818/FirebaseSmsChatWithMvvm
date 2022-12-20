@@ -1,17 +1,14 @@
 package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.person
 
+import android.content.Intent
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenCreated
 import dagger.hilt.android.AndroidEntryPoint
 import jx.lessons.firebasesmschatwithmvvm.R
-import jx.lessons.firebasesmschatwithmvvm.data.utils.SharedPref
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
-import jx.lessons.firebasesmschatwithmvvm.data.utils.snackbar
+import jx.lessons.firebasesmschatwithmvvm.data.utils.*
 import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentPersonBinding
 import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
-import kotlinx.coroutines.launch
+import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.MainActivity
 
 @AndroidEntryPoint
 class PersonFragment : BaseFragment<FragmentPersonBinding>(FragmentPersonBinding::inflate) {
@@ -26,13 +23,20 @@ class PersonFragment : BaseFragment<FragmentPersonBinding>(FragmentPersonBinding
             val bundle = bundleOf("POSITION" to i)
             navController.navigate(R.id.action_personFragment_to_listPostUserFragment,bundle)
         }
+        binding.exit.setOnClickListener {
+            viewModel.logout()
+            shared.setEmail("")
+            shared.setGender("")
+            startActivity(Intent(requireActivity(),MainActivity::class.java))
+            requireActivity().finish()
+        }
         shared.getEmail()?.let {
-            viewModel.getUserInfo(viewModel.firebasePathgmail(it))
+            viewModel.getUserInfo(firebasePathgmail(it))
             viewModel.getUserPosts(it)
         }
         binding.swipe.setOnRefreshListener {
             shared.getEmail()?.let {
-                viewModel.getUserInfo(viewModel.firebasePathgmail(it))
+                viewModel.getUserInfo(firebasePathgmail(it))
                 viewModel.getUserPosts(it)
             }
         }
@@ -40,55 +44,49 @@ class PersonFragment : BaseFragment<FragmentPersonBinding>(FragmentPersonBinding
     }
 
     private fun observer() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.whenCreated {
-                viewModel.getUserPosts.observe(viewLifecycleOwner){state->
-                    when(state){
-                        is UiState.Loading->{
+        viewModel.getUserPosts.observe(viewLifecycleOwner){state->
+            when(state){
+                is UiState.Loading->{
+                    binding.swipe.isRefreshing=true
 
-                        }
-                        is UiState.Failure->{
-                            snackbar(state.message.toString(), binding.fullLayout)
-                        }
-                        is UiState.Success->{
-                            adapter =
-                                PersonAdapter(
-                                    state.data,
-                                    requireContext()
-                                )
-                            binding.gridView.adapter = adapter
-
-                        }
-                    }
+                }
+                is UiState.Failure->{
+                    snackbar(state.message.toString(), binding.fullLayout)
+                    binding.swipe.isRefreshing=false
+                }
+                is UiState.Success->{
+                    adapter =
+                        PersonAdapter(
+                            state.data,
+                            requireContext()
+                        )
+                    binding.gridView.adapter = adapter
+                    binding.swipe.isRefreshing=false
                 }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.whenCreated {
-                viewModel.getUserInfo.observe(viewLifecycleOwner){state->
-                    when(state){
-                        is UiState.Loading->{
-
-                        }
-                        is UiState.Failure->{
-
-                        }
-                        is UiState.Success->{
-                            binding.profileAge.text = state.data?.age.toString()
-                            if (state.data?.gender=="male"){
-                                binding.profileImage.setImageResource(R.drawable.male_avatar)
-                            }else if (state.data?.gender == "female"){
-                                binding.profileImage.setImageResource(R.drawable.female_avatar)
-                            }
-                            binding.profileName.text = state.data?.name
-                            binding.profileAge.text = state.data?.age.toString()
-                            binding.profileGender.text = state.data?.gender
-                        }
-                    }
-                }
+        viewModel.getUserInfo.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                 is UiState.Loading -> {
+                     binding.swipe.isRefreshing = true
+                 }
+                 is UiState.Failure -> {
+                     binding.swipe.isRefreshing = false
+                 }
+                 is UiState.Success -> {
+                     binding.profileAge.text = state.data?.age.toString()
+                     if (state.data?.gender == "Male") {
+                          binding.profileImage.setImageResource(R.drawable.male_avatar)
+                     } else if (state.data?.gender == "Female") {
+                          binding.profileImage.setImageResource(R.drawable.female_avatar)
+                       }
+                     binding.profileName.text = state.data?.name
+                     binding.profileAge.text = state.data?.age.toString()
+                     binding.profileGender.text = state.data?.gender
+                     binding.swipe.isRefreshing = false
+                 }
             }
         }
-
     }
 
 }

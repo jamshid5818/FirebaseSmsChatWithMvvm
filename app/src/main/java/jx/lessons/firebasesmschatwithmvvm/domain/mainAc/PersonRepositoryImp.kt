@@ -1,5 +1,6 @@
-package jx.lessons.firebasesmschatwithmvvm.data.repository.mainAc
+package jx.lessons.firebasesmschatwithmvvm.domain.mainAc
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -14,7 +15,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PersonRepositoryImp @Inject constructor(
-    val myRef: FirebaseDatabase,
+    val auth: FirebaseAuth,
+    val myRef: FirebaseDatabase
 ) : PersonRepostiroy {
     override fun getPosts(emailAddress: String, result: (UiState<ArrayList<Post>>) -> Unit) {
         val list = ArrayList<Post>()
@@ -52,6 +54,11 @@ class PersonRepositoryImp @Inject constructor(
                 }
 
             })
+        }
+    }
+    override fun logout(result: () -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            auth.signOut()
         }
     }
 }
