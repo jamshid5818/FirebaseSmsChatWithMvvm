@@ -73,7 +73,7 @@ class GlobalChatFragment : BaseChatFragment<FragmentGlobalChatBinding>(FragmentG
                     toast("Failure send")
                 }
                 is UiState.Success->{
-                    viewModel.getAllSms()
+                   
                 }
             }
         }
