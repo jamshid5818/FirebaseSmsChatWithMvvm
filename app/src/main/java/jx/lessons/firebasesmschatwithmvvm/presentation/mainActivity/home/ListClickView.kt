@@ -1,8 +1,11 @@
 package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.home
 
+import java.net.URL
+
 interface ListClickView {
-    fun clickedLike(randomKey:String)
-    fun clickedComment(randomKey:String)
-    fun doubleClickImageView(randomKey:String)
-    fun longClickedLike(randomKey: String)
+    fun clickedLike(key:String)
+    fun clickedComment(unixTime:Long)
+    fun doubleClickImageView(key:String)
+    fun longClickedLike(key:String)
+    fun downloadClicked(url: String,key:String)
 }

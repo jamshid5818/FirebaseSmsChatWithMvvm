@@ -1,15 +1,15 @@
 package jx.lessons.firebasesmschatwithmvvm.data.model
 
 class Post {
-    lateinit var likeS: ArrayList<Likes>
-    lateinit var comments: ArrayList<Comments>
+    var likeS: ArrayList<Likes>? = null
+    var comments: ArrayList<Comments>? = null
     var postDescription: String = ""
     var postTitle: String = ""
     var userEmail: String = ""
     var imageUri: String = ""
-    lateinit var tagsList: ArrayList<String>
-    var randomKey:String = ""
+    var tagsList: ArrayList<String>? = null
     var unixTime:Long=0
+    var downloads: ArrayList<Downloads>? = null
 
     constructor(
         comments: ArrayList<Comments>,
@@ -19,8 +19,8 @@ class Post {
         userEmail: String,
         imageUri: String,
         tagsList: ArrayList<String>,
-        randomkey: String,
-        unixTime:Long
+        unixTime:Long,
+        downloads: ArrayList<Downloads>
     ) {
         this.comments = comments
         this.likeS = likes
@@ -29,8 +29,8 @@ class Post {
         this.userEmail = userEmail
         this.imageUri = imageUri
         this.tagsList = tagsList
-        this.randomKey = randomkey
         this.unixTime = unixTime
+        this.downloads = downloads
     }
 
     constructor()
@@ -42,7 +42,8 @@ class Post {
         postTitle: String,
         userEmail: String,
         tagsList: ArrayList<String>,
-        randomkey: String
+        unixTime: Long,
+        downloads: ArrayList<Downloads>
     ) {
         this.comments = comments
         this.likeS = likeS
@@ -50,6 +51,7 @@ class Post {
         this.postTitle = postTitle
         this.userEmail = userEmail
         this.tagsList = tagsList
-        this.randomKey = randomkey
+        this.unixTime = unixTime
+        this.downloads=downloads
     }
 }

@@ -1,45 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/chat_bg"
     android:layout_height="match_parent"
     tools:context=".presentation.chatActivity.global.GlobalChatFragment">
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="13"
-        >
-
+        android:layout_marginBottom="65dp"
+        android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/list"/>
+            android:layout_marginBottom="65dp"
+            />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
-        android:layout_weight="1">
+        android:background="#46FF0000"
+        app:layout_constraintBottom_toBottomOf="parent">
         <EditText
             android:id="@+id/getSmsText"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="1dp"
+            android:layout_weight="9"
             android:background="@drawable/background_edit_text"
-            android:layout_weight="6"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
             />
         <ImageView
+            android:id="@+id/sendPhoto"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_baseline_file_present_24"
+            />
+
+        <ImageView
             android:id="@+id/sendSms"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/horse_message"
+            android:layout_margin="5dp"
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

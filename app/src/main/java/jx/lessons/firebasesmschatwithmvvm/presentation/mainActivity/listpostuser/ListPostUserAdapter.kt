@@ -20,11 +20,11 @@ class ListPostUserAdapter(var context: Context) :RecyclerView.Adapter<ListPostUs
 
     inner class MyViewHolder(var binding: ItemPostsBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(data: Post){
-            binding.commentText.text = data.comments.size.toString()
-            binding.likeText.text = data.likeS.size.toString()
+            binding.commentText.text = data.comments?.size.toString()
+            binding.likeText.text = data.likeS?.size.toString()
             binding.descriptionPost.text = data.postDescription
             binding.titlePost.text = data.postTitle
-            data.tagsList.forEach {
+            data.tagsList?.forEach {
                 binding.tagChips.addChip_home_post(it)
             }
             Glide.with(context)

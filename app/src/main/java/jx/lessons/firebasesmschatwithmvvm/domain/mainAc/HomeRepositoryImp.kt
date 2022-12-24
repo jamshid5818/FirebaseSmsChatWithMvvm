@@ -1,9 +1,11 @@
 package jx.lessons.firebasesmschatwithmvvm.domain.mainAc
 
+import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import jx.lessons.firebasesmschatwithmvvm.data.model.Downloads
 import jx.lessons.firebasesmschatwithmvvm.data.model.Likes
 import jx.lessons.firebasesmschatwithmvvm.data.model.Post
 import jx.lessons.firebasesmschatwithmvvm.data.utils.FirebaseRealtimeDatabaseConstants
@@ -22,6 +24,7 @@ class HomeRepositoryImp @Inject constructor(
             myRef.getReference(FirebaseRealtimeDatabaseConstants.path_posts)
                 .addValueEventListener(object :ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
+                        list.clear()
                         snapshot.children.forEach {
                             val post:Post = it.getValue(Post::class.java)!!
                             list.add(post)
@@ -49,34 +52,71 @@ class HomeRepositoryImp @Inject constructor(
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-
-                    }
-
-                })
-        }
-    }
-
-    override fun PlusLike(list:ArrayList<Likes>,randomKey:String,emailAddress: String, result: (UiState<Boolean>) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            myRef.getReference(FirebaseRealtimeDatabaseConstants.path_posts).child(randomKey).child("likeS")
-
-        }
-    }
-
-    override fun MinusLike(emailAddress: String,randomKey: String, result: (UiState<Boolean>) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            myRef.getReference(FirebaseRealtimeDatabaseConstants.path_posts).child(randomKey).child("likeS")
-                .addValueEventListener(object :ValueEventListener{
-                    override fun onDataChange(snapshot: DataSnapshot) {
-
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
                         result.invoke(UiState.Failure(error.message))
                     }
-
                 })
         }
     }
 
+    override fun plusLike(key:String,likes: Likes, result: (UiState<String>) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            var size=0
+            myRef.getReference(FirebaseRealtimeDatabaseConstants.path_posts).child(key).child("likeS").addListenerForSingleValueEvent(object :ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    size = snapshot.children.count()
+                    var alreadyClicked = false
+                    snapshot.children.forEach {
+                        val data:Likes = it.getValue(Likes::class.java)!!
+                        if (data.email==likes.email){
+                            result.invoke(UiState.Success("You have already clicked like"))
+                            alreadyClicked = true
+                        }
+                    }
+                    if (!alreadyClicked){
+                        myRef.getReference(FirebaseRealtimeDatabaseConstants.path_posts).child(key).child("likeS").child(size.toString()).setValue(
+                            likes
+                        )
+                            .addOnSuccessListener {
+                                result.invoke(UiState.Success("Successfully"))
+                                Log.d("LikeCount", size.toString())
+                            }
+                            .addOnFailureListener {
+                                result.invoke(UiState.Failure(it.message))
+                            }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    result.invoke(UiState.Failure(error.message))
+                }
+
+            })
+
+        }
+    }
+
+    override fun plusDown(key: String, downloads: Downloads, result: (UiState<String>) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            var size=0
+            myRef.getReference(FirebaseRealtimeDatabaseConstants.path_posts).child(key).child("downloads").addListenerForSingleValueEvent(object :ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    size = snapshot.children.count()
+                    myRef.getReference(FirebaseRealtimeDatabaseConstants.path_posts).child(key).child("downloads").child(size.toString()).setValue(
+                        downloads
+                    )
+                        .addOnSuccessListener {
+                            result.invoke(UiState.Success("SUCCES"))
+                            Log.d("DOWNLOADCOUNT", size.toString())
+                        }
+                        .addOnFailureListener {
+                            result.invoke(UiState.Failure(it.message))
+                        }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    result.invoke(UiState.Failure(error.message))
+                }
+            })
+        }
+    }
 }

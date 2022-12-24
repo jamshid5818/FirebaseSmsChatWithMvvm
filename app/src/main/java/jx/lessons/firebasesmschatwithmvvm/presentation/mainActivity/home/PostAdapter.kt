@@ -3,44 +3,69 @@ package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.home
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import jx.lessons.firebasesmschatwithmvvm.R
 import jx.lessons.firebasesmschatwithmvvm.data.model.Post
 import jx.lessons.firebasesmschatwithmvvm.data.utils.addChip_home_post
 import jx.lessons.firebasesmschatwithmvvm.databinding.ItemPostsBinding
-import kotlin.collections.ArrayList
 
 class PostAdapter(var list: ArrayList<Post>,var context: Context, var listClickView: ListClickView) : RecyclerView.Adapter<PostAdapter.MyViewHolder>() {
+
+    var rotationAnim = AnimationUtils.loadAnimation(context, R.anim.rotation_360)
 
     inner class MyViewHolder(var binding: ItemPostsBinding):RecyclerView.ViewHolder(binding.root)   {
         fun bind(data: Post){
             var i = 0
-            binding.commentText.text = (data.comments.size-1).toString()
-            binding.likeText.text = (data.likeS.size-2).toString()
+            if (data.likeS != null) {
+                binding.likeText.text= data.likeS!!.size.toString()
+            } else {
+                binding.likeText.text = "0"
+            }
+            if (data.comments != null) {
+                binding.commentText.text= data.comments!!.size.toString()
+            } else {
+                binding.commentText.text = "0"
+            }
+            if (data.downloads != null) {
+                binding.downloadText.text= data.downloads!!.size.toString()
+            } else {
+                binding.downloadText.text = "0"
+            }
+
             binding.descriptionPost.text = data.postDescription
             binding.titlePost.text = data.postTitle
             binding.imageLike.setOnClickListener {
-                listClickView.clickedLike(data.randomKey)
+                listClickView.clickedLike(data.unixTime.toString())
+                binding.imageLike.startAnimation(rotationAnim)
             }
             binding.imageComment.setOnClickListener {
-                listClickView.clickedComment(data.randomKey)
+                listClickView.clickedComment(data.unixTime)
+                binding.imageComment.startAnimation(rotationAnim)
             }
             binding.imageLike.setOnLongClickListener {
-                listClickView.longClickedLike(data.randomKey)
+                listClickView.longClickedLike(data.unixTime.toString())
                 return@setOnLongClickListener true
+            }
+            binding.download.setOnClickListener {
+                binding.download.startAnimation(rotationAnim)
+                listClickView.downloadClicked(data.imageUri,data.unixTime.toString())
             }
             binding.imagePost.setOnClickListener {
                 i++
                 val handler = android.os.Handler()
                 handler.postDelayed({
                     if (i==2){
-                        listClickView.doubleClickImageView(data.randomKey)
+                        listClickView.doubleClickImageView(data.unixTime.toString())
+                        binding.imageLike.startAnimation(rotationAnim)
                     }
                     i = 0
                 },500)
             }
             binding.tagChips.removeView(binding.tagChips)
-            data.tagsList.forEach {
+            data.tagsList?.forEach {
                 binding.tagChips.addChip_home_post(it)
             }
             Glide.with(context)

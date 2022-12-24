@@ -23,14 +23,32 @@ class PostRepositoryImp @Inject constructor(
 
 
     fun upLoad(post: Post, imageUri: Uri, result: (UiState<String>) -> Unit){
-        val randomKey =UUID.randomUUID().toString()
+        val randomKey =post.unixTime.toString()
         val riversRef =storageReference.child("posts/$randomKey.png")
         CoroutineScope(Dispatchers.IO).launch {
             riversRef.putFile(imageUri)
                 .addOnSuccessListener {
                     storageReference.child("posts/$randomKey.png").downloadUrl
                         .addOnSuccessListener {uri->
-                            myRef.getReference("posts").child(randomKey).setValue(Post(post.comments,post.likeS,post.postDescription,post.postTitle,post.userEmail, post.tagsList, randomKey))
+                            myRef.getReference("posts").child(randomKey).setValue(post.comments?.let { comments ->
+                                post.likeS?.let { likeS ->
+                                    post.tagsList?.let { tagList ->
+                                        post.downloads?.let { downloads ->
+                                            Post(
+                                                comments = comments,
+                                                likeS = likeS,
+                                                postDescription = post.postDescription,
+                                                postTitle = post.postTitle,
+                                                userEmail = post.userEmail,
+                                                tagsList = tagList,
+                                                randomKey.toLong(),
+                                                downloads = downloads
+
+                                            )
+                                        }
+                                    }
+                                }
+                            })
                                 .addOnSuccessListener {
                                     result.invoke(UiState.Success("Successfull"))
                                 }

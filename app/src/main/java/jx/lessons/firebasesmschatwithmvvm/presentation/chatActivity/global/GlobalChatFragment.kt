@@ -4,16 +4,12 @@ package jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.global
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import jx.lessons.firebasesmschatwithmvvm.R
-import jx.lessons.firebasesmschatwithmvvm.data.model.Sms
 import jx.lessons.firebasesmschatwithmvvm.data.utils.SharedPref
 import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
-import jx.lessons.firebasesmschatwithmvvm.data.utils.snackbar
 import jx.lessons.firebasesmschatwithmvvm.data.utils.toast
 import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentGlobalChatBinding
 import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.BaseChatFragment
-import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.home.HomeViewModel
-import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.home.PostAdapter
+import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.ChatAdapter
 
 @AndroidEntryPoint
 class GlobalChatFragment : BaseChatFragment<FragmentGlobalChatBinding>(FragmentGlobalChatBinding::inflate) {
@@ -31,6 +27,9 @@ class GlobalChatFragment : BaseChatFragment<FragmentGlobalChatBinding>(FragmentG
         binding.list.layoutManager=LinearLayoutManager(requireContext())
         binding.swipe.setOnRefreshListener {
             viewModel.getAllSms()
+        }
+        binding.sendPhoto.setOnClickListener {
+
         }
         binding.sendSms.setOnClickListener {
             if (shared.getEmail()=="" && shared.getGender()==""){
@@ -73,7 +72,7 @@ class GlobalChatFragment : BaseChatFragment<FragmentGlobalChatBinding>(FragmentG
                     toast("Failure send")
                 }
                 is UiState.Success->{
-                   
+
                 }
             }
         }

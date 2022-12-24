@@ -1,15 +1,17 @@
 package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.home
 
+import android.app.DownloadManager
+import android.content.Context.DOWNLOAD_SERVICE
+import android.net.Uri
+import android.util.Log
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenCreated
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import jx.lessons.firebasesmschatwithmvvm.data.model.Downloads
 import jx.lessons.firebasesmschatwithmvvm.data.model.Likes
 import jx.lessons.firebasesmschatwithmvvm.data.utils.*
 import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentHomeBinding
 import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
@@ -17,7 +19,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     val viewModel: HomeViewModel by viewModels()
     lateinit var adapter: PostAdapter
     private val getClickedLikeUsersList = ArrayList<Likes>()
-    var isClickedLike = false
+    private var isClickedLike = false
+    val shared by lazy {
+        SharedPref(requireContext())
+    }
     override fun onViewCreate() {
         observer()
         viewModel.getAllPost()
@@ -29,90 +34,93 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun observer() {
-                viewModel.getAllPost.observe(viewLifecycleOwner){state->
-                    when(state){
-                        is UiState.Loading->{
-                            binding.swipe.isRefreshing = true
-                        }
-                        is UiState.Failure->{
-                            binding.swipe.isRefreshing = false
-                            snackbar(state.message.toString(), binding.swipe)
-                        }
-                        is UiState.Success->{
-                            binding.swipe.isRefreshing = false
-                            adapter = state.data?.let { PostAdapter(it,requireContext(), this@HomeFragment) }!!
-                            binding.list.adapter = adapter
+        viewModel.getAllPost.observe(viewLifecycleOwner){state->
+            when(state){
+                is UiState.Loading->{
+                    binding.swipe.isRefreshing = true
+                }
+                is UiState.Failure->{
+                    binding.swipe.isRefreshing = false
+                    snackbar(state.message.toString(), binding.swipe)
+                }
+                is UiState.Success->{
+                    binding.swipe.isRefreshing = false
+                    adapter = state.data?.let { PostAdapter(it,requireContext(), this@HomeFragment) }!!
+                    binding.list.adapter = adapter
+                }
+            }
+        }
+        viewModel.getClickedLikeUsers.observe(viewLifecycleOwner){state->
+            when(state){
+                is  UiState.Loading->{
+                }
+                is UiState.Failure->{
+                }
+                is UiState.Success->{
+                    state.data?.let { getClickedLikeUsersList.addAll(it) }
+                    getClickedLikeUsersList.forEach { likes ->
+                        if (likes.email==getEmail(requireContext())){
+                            isClickedLike = true
                         }
                     }
                 }
-
-                viewModel.getClickedLikeUsers.observe(viewLifecycleOwner){state->
-                    when(state){
-                        is  UiState.Loading->{
-
-                        }
-                        is UiState.Failure->{
-
-                        }
-                        is UiState.Success->{
-                            state.data?.let { getClickedLikeUsersList.addAll(it) }
-                            getClickedLikeUsersList.forEach { likes ->
-                                if (likes.email==getEmail(requireContext())){
-                                    isClickedLike = true
-                                }
-                            }
-
-                        }
-                    }
+            }
+        }
+        viewModel.addLike.observe(viewLifecycleOwner){state->
+            when(state){
+                is  UiState.Loading->{
                 }
-
-                viewModel.setLikePost.observe(viewLifecycleOwner){state->
-                    when(state){
-                        is  UiState.Loading->{
-
-                        }
-                        is UiState.Failure->{
-                            snackbar("Failure like", binding.homeView)
-                        }
-                        is UiState.Success->{
-                            snackbar("Liked Post", binding.homeView)
-                        }
-                    }
+                is UiState.Failure->{
+                    toast(state.data)
                 }
-                viewModel.setMinusLike.observe(viewLifecycleOwner){state->
-                    when(state){
-                        is  UiState.Loading->{
-
-                        }
-                        is UiState.Failure->{
-                            snackbar("Failure dizlike", binding.homeView)
-                        }
-                        is UiState.Success->{
-                            snackbar("Dizliked Post", binding.homeView)
-                        }
-                    }
+                is UiState.Success->{
+                    toast(state.data)
                 }
-    }
+            }
+        }
+        viewModel.addDownload.observe(viewLifecycleOwner){state->
+            when(state){
+                is  UiState.Loading->{
 
-    override fun clickedLike(randomKey:String) {
-        viewModel.getClickedLikeUsers(randomKey)
-        if (isClickedLike){
-            viewModel.setMinusLike(getEmail(requireContext()), randomKey)
-        }else{
-            viewModel.setLikePost(getClickedLikeUsersList,randomKey, getEmail(requireContext()))
+                }
+                is UiState.Failure->{
+                toast(state.message)
+                }
+                is UiState.Success->{
+
+                }
+            }
         }
     }
 
-    override fun clickedComment(randomKey:String) {
+    override fun clickedLike(key:String) {
+        shared.getEmail()?.let { Likes(it,System.currentTimeMillis()) }
+            ?.let { viewModel.addLike(key, it) }
+    }
+
+    override fun clickedComment(unixTime:Long) {
 
     }
 
-    override fun doubleClickImageView(randomKey:String) {
-        viewModel.getClickedLikeUsers(randomKey)
-
+    override fun doubleClickImageView(key:String) {
+        shared.getEmail()?.let { Likes(it,System.currentTimeMillis()) }
+            ?.let { viewModel.addLike(key, it) }
     }
 
-    override fun longClickedLike(randomKey: String) {
+    override fun longClickedLike(key:String) {
         toast("fdasf")
     }
+
+    override fun downloadClicked(url:String,key:String) {
+        val request = DownloadManager.Request(Uri.parse(url))
+            .setTitle("File")
+            .setDescription("Downloading")
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            .setAllowedOverMetered(true)
+        val dm = requireActivity().getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+        dm.enqueue(request)
+        shared.getEmail()?.let { Downloads(it, key.toLong()) }
+            ?.let { viewModel.addDownload(key, it) }
+    }
+
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.SmsActivity">
+    tools:context=".presentation.chatActivity.random.SmsActivity">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/top"
         android:layout_width="match_parent"
@@ -32,13 +32,20 @@
             android:textSize="32sp"
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="65dp"
         android:layout_marginTop="52dp"
-        />
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/bottom"
         android:layout_width="match_parent"
@@ -47,6 +54,7 @@
         android:background="#46FF0000"
         app:layout_constraintBottom_toBottomOf="parent">
         <EditText
+            android:id="@+id/getsms"
             android:layout_width="0dp"
             android:layout_weight="9"
             android:background="@drawable/background_edit_text"
@@ -54,6 +62,7 @@
             android:layout_margin="10dp"
             />
         <ImageView
+            android:id="@+id/sendPhoto"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="5dp"
@@ -61,6 +70,7 @@
             />
 
         <ImageView
+            android:id="@+id/sendSms"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/horse_message"

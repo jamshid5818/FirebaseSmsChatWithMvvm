@@ -5,34 +5,36 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import jx.lessons.firebasesmschatwithmvvm.R
+import jx.lessons.firebasesmschatwithmvvm.data.utils.SharedPref
 import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
 import jx.lessons.firebasesmschatwithmvvm.data.utils.createDialog
 import jx.lessons.firebasesmschatwithmvvm.data.utils.toast
 import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentRandomChatBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.SmsActivity
 import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.BaseChatFragment
-import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.ChatActivity
 
 @AndroidEntryPoint
 class RandomChatFragment : BaseChatFragment<FragmentRandomChatBinding>(FragmentRandomChatBinding::inflate) {
     val viewModel:RandomChatViewModel by viewModels()
+    val shared by lazy {
+        SharedPref(requireContext())
+    }
     override fun onViewCreate() {
-        oberver()
+        observer()
         binding.addNewRandomChat.setOnClickListener {
             val dialog = requireContext().createDialog(R.layout.dialog_create_new_random,true)
             val findGirls = dialog.findViewById<LinearLayoutCompat>(R.id.findgirls)
             val findBoys = dialog.findViewById<LinearLayoutCompat>(R.id.findboys)
             findGirls.setOnClickListener {
-                viewModel.getNewPerson("Female", System.currentTimeMillis())
+                shared.getEmail()?.let { it1 -> viewModel.getNewPerson("Female", it1) }
             }
             findBoys.setOnClickListener {
-                viewModel.getNewPerson("Male", System.currentTimeMillis())
+                shared.getEmail()?.let { it1 -> viewModel.getNewPerson("Male", it1) }
             }
         }
     }
 
-    private fun oberver() {
-        viewModel.getNewPerson.observe(viewLifecycleOwner){state->
+    private fun observer() {
+        viewModel.findNewPerson.observe(viewLifecycleOwner){ state->
             when(state){
                 is UiState.Loading->{
 

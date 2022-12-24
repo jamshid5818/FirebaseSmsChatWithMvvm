@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.global
+package jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import jx.lessons.firebasesmschatwithmvvm.R
 import jx.lessons.firebasesmschatwithmvvm.data.model.Sms
 import jx.lessons.firebasesmschatwithmvvm.data.utils.SharedPref
 
-class ChatAdapter(var list:MutableList<Sms>,var context: Context):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class ChatAdapter(var list:ArrayList<Sms>,var context: Context):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     companion object {
         private const val ITEM_RECEIVE = 1
         private const val ITEM_SENT = 2

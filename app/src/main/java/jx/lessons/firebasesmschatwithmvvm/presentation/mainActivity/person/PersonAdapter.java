@@ -11,8 +11,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import jx.lessons.firebasesmschatwithmvvm.R;
+import jx.lessons.firebasesmschatwithmvvm.data.model.Likes;
 import jx.lessons.firebasesmschatwithmvvm.data.model.Post;
 
 public class PersonAdapter extends BaseAdapter {
@@ -46,7 +48,12 @@ public class PersonAdapter extends BaseAdapter {
         TextView textView = view.findViewById(R.id.likeCount);
         Post post = (Post) getItem(index);
         Glide.with(context).load(post.getImageUri()).into(imageView);
-        textView.setText(String.valueOf(post.getLikeS().size()));
+        if (post.getLikeS()!=null){
+            textView.setText(String.valueOf(post.getLikeS().size()));
+        }else {
+            textView.setText("0");
+        }
+
         return view;
     }
 }

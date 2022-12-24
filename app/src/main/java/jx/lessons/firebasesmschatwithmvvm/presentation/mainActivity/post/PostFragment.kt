@@ -8,6 +8,7 @@ import android.widget.EditText
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import jx.lessons.firebasesmschatwithmvvm.data.utils.*
 import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentPostBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -15,6 +16,7 @@ import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import jx.lessons.firebasesmschatwithmvvm.R
 import jx.lessons.firebasesmschatwithmvvm.data.model.Comments
+import jx.lessons.firebasesmschatwithmvvm.data.model.Downloads
 import jx.lessons.firebasesmschatwithmvvm.data.model.Likes
 import jx.lessons.firebasesmschatwithmvvm.data.model.Post
 import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
@@ -42,11 +44,13 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         }
         val comments = ArrayList<Comments>()
         val likes = ArrayList<Likes>()
+        val downloads= ArrayList<Downloads>()
+        comments.add(Comments(sharedPref.getEmail().toString(),"\uD83D\uDC4D\uD83D\uDC4D\uD83D\uDC4D", System.currentTimeMillis()))
+        likes.add(Likes(sharedPref.getEmail().toString(), System.currentTimeMillis()))
+        downloads.add(Downloads(sharedPref.getEmail().toString(), System.currentTimeMillis()))
         binding.publishPostBtn.setOnClickListener {
             if (validation()){
-                var unixTime = System.currentTimeMillis()
-                sharedPref.getEmail()?.let { Comments(it, "",unixTime=unixTime) }?.let { comments.add(it) }
-                sharedPref.getEmail()?.let { Likes(it,unixTime) }?.let { likes.add(it) }
+                val unixTime = System.currentTimeMillis()
                 viewModel.upLoadPost(
                     Post(
                         comments,
@@ -55,7 +59,8 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                         binding.title.text.toString(),
                         sharedPref.getEmail()!!,
                         tagsList,
-                        ""
+                        unixTime,
+                        downloads
                     ),
                     imageUri!!
                 )
@@ -84,7 +89,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         when (result.resultCode) {
             Activity.RESULT_OK -> {
                 imageUri = result.data!!.data
-                binding.imageView.setImageURI(imageUri)
+                Glide.with(this).load(imageUri).into(binding.imageView)
             }
             getStorageImage.error -> {
                 toast("${result.data}")
