@@ -1,9 +1,10 @@
-package jx.lessons.firebasesmschatwithmvvm.domain.chatAc.global
+package jx.lessons.firebaseSmsChatWithMvvm.domain.chatAc.global
 
-import jx.lessons.firebasesmschatwithmvvm.data.model.Sms
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
+import android.net.Uri
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Sms
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
 
 interface GlobalRepository {
-    fun sendSms(email:String,smsText:String,gender:String,unixTime:Long,result: (UiState<String>) -> Unit)
+    fun sendSms(email:String,smsText:String,gender:String,unixTime:Long,imageUri: Uri,result: (UiState<String>) -> Unit)
     fun getAllSms(result: (UiState<ArrayList<Sms>>) -> Unit)
 }

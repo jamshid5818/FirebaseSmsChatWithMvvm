@@ -1,23 +1,24 @@
 {
   "project_info": {
     "project_number": "748998514279",
+    "firebase_url": "https://smschatwithmwwm-default-rtdb.firebaseio.com",
     "project_id": "smschatwithmwwm",
     "storage_bucket": "smschatwithmwwm.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:748998514279:android:d0a3cddd38b84c4ddba6c2",
+        "mobilesdk_app_id": "1:748998514279:android:dcbe9d3788840d1adba6c2",
         "android_client_info": {
-          "package_name": "jx.lessons.firebasesmschatwithmvvm"
+          "package_name": "jx.lessons.firebaseSmsChatWithMvvm"
         }
       },
       "oauth_client": [
         {
-          "client_id": "748998514279-761n8n58vb3n0b8uqh8nup3p1m2c4b0o.apps.googleusercontent.com",
+          "client_id": "748998514279-5cep96soj2n28fj4r9bgg8md7pc8srvk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "jx.lessons.firebasesmschatwithmvvm",
+            "package_name": "jx.lessons.firebaseSmsChatWithMvvm",
             "certificate_hash": "906ff2323dc3b941cedd69b8fae9a5ba1e13b7ca"
           }
         },
@@ -28,7 +29,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCOxxkrXf_P0K4M_wXaKfOk8SDMRMesmIY"
+          "current_key": "AIzaSyBVbBk00SnSTUr_n3IMnb2wGkADbvjgNo0"
         }
       ],
       "services": {

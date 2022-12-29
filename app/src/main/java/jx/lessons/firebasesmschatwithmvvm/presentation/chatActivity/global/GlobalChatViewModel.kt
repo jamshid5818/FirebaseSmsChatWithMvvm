@@ -1,13 +1,14 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.global
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.chatActivity.global
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jx.lessons.firebasesmschatwithmvvm.data.model.Sms
-import jx.lessons.firebasesmschatwithmvvm.domain.chatAc.global.GlobalRepository
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Sms
+import jx.lessons.firebaseSmsChatWithMvvm.domain.chatAc.global.GlobalRepository
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,10 +30,10 @@ class GlobalChatViewModel @Inject constructor(
     private val _sendSms = MutableLiveData<UiState<String>>()
     val sendSms : LiveData<UiState<String>>
         get() = _sendSms
-    fun sendSms(email:String,smsText:String,gender:String,unixTime:Long){
+    fun sendSms(email:String,smsText:String,gender:String,unixTime:Long,imageUri: Uri){
         _sendSms.value=UiState.Loading(true)
         viewModelScope.launch {
-            repository.sendSms(email = email,smsText=smsText,gender=gender,unixTime=unixTime){
+            repository.sendSms(email = email,smsText=smsText,gender=gender,unixTime=unixTime,imageUri){
                 _sendSms.value=it
             }
         }

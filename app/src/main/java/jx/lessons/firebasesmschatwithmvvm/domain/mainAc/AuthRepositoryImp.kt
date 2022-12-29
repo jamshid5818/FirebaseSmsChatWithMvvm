@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.domain.mainAc
+package jx.lessons.firebaseSmsChatWithMvvm.domain.mainAc
 
 import android.util.Log
 import com.google.firebase.auth.*
@@ -6,13 +6,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
-import com.google.firebase.firestore.auth.User
-import jx.lessons.firebasesmschatwithmvvm.data.model.Post
-import jx.lessons.firebasesmschatwithmvvm.data.model.UserInfo
-import jx.lessons.firebasesmschatwithmvvm.data.utils.FirebaseRealtimeDatabaseConstants
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
-import jx.lessons.firebasesmschatwithmvvm.data.utils.firebasePathgmail
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.UserInfo
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.FirebaseRealtimeDatabaseConstants
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.firebasePathgmail
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,13 +28,13 @@ class AuthRepositoryImp @Inject constructor(
             auth.createUserWithEmailAndPassword(userInfo.email,userInfo.password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful){
+                        Log.d("USER IID", task.result.user.toString())
                         myRef.getReference(FirebaseRealtimeDatabaseConstants.path_users).child(emailFireKey).child("userInfo").setValue(userInfo).addOnCompleteListener {
                             if (it.isSuccessful){
                                 result.invoke(UiState.Success("Email address has been successfully registered"))
                             }else {
                                 result.invoke(UiState.Success("Error: ${it.result}"))
                             }
-
                         }
                             .addOnFailureListener {
                                 result.invoke(UiState.Failure(it.message))
@@ -76,6 +73,7 @@ class AuthRepositoryImp @Inject constructor(
             auth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        Log.d("USER IID", task.result.user?.uid.toString())
                         myRef.getReference(FirebaseRealtimeDatabaseConstants.path_users)
                             .child(firebasePathgmail(email)).child("userInfo").addValueEventListener(object :ValueEventListener{
                                 override fun onDataChange(snapshot: DataSnapshot) {

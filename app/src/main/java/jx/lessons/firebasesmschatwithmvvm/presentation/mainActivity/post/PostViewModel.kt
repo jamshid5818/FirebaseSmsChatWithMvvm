@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.post
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.post
 
 import android.net.Uri
 import androidx.lifecycle.LiveData
@@ -6,9 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jx.lessons.firebasesmschatwithmvvm.data.model.Post
-import jx.lessons.firebasesmschatwithmvvm.domain.mainAc.PostRepository
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Post
+import jx.lessons.firebaseSmsChatWithMvvm.domain.mainAc.PostRepository
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.home.HomeFragment"
+        android:name="jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/likeFragment"
-        android:name="jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.like.LikeFragment"
+        android:name="jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.like.LikeFragment"
         android:label="fragment_like"
         tools:layout="@layout/fragment_like" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.auth.LoginFragment"
+        android:name="jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.auth.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/personFragment"
-        android:name="jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.person.PersonFragment"
+        android:name="jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.person.PersonFragment"
         android:label="fragment_person"
         tools:layout="@layout/fragment_person" >
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.auth.RegisterFragment"
+        android:name="jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.auth.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -53,17 +53,17 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.search.SearchFragment"
+        android:name="jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.settings.SettingsFragment"
+        android:name="jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.auth.ForgotPasswordFragment"
+        android:name="jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.auth.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" >
         <action
@@ -72,12 +72,12 @@
     </fragment>
     <fragment
         android:id="@+id/postFragment"
-        android:name="jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.post.PostFragment"
+        android:name="jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.post.PostFragment"
         android:label="fragment_post"
         tools:layout="@layout/fragment_post" />
     <fragment
         android:id="@+id/listPostUserFragment"
-        android:name="jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.listpostuser.ListPostUserFragment"
+        android:name="jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.listpostuser.ListPostUserFragment"
         android:label="fragment_list_post_user"
         tools:layout="@layout/fragment_list_post_user" />
 </navigation>

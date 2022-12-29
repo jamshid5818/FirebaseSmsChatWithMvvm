@@ -1,6 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.home
-
-import java.net.URL
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.home
 
 interface ListClickView {
     fun clickedLike(key:String)

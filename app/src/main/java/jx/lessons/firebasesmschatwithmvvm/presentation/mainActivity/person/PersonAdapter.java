@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.person;
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.person;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,18 +10,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.List;
 
-import jx.lessons.firebasesmschatwithmvvm.R;
-import jx.lessons.firebasesmschatwithmvvm.data.model.Likes;
-import jx.lessons.firebasesmschatwithmvvm.data.model.Post;
+import jx.lessons.firebaseSmsChatWithMvvm.R;
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Post;
 
 public class PersonAdapter extends BaseAdapter {
-    private final ArrayList<Post> postList;
+    private final List<Post> postList;
     private final Context context;
 
-    public PersonAdapter(ArrayList<Post> postList, Context context) {
+    public PersonAdapter(List<Post> postList, Context context) {
         this.postList = postList;
         this.context = context;
     }

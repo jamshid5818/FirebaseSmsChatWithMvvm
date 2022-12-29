@@ -1,16 +1,16 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.random
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.chatActivity.random
 
 import android.content.Intent
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import jx.lessons.firebasesmschatwithmvvm.R
-import jx.lessons.firebasesmschatwithmvvm.data.utils.SharedPref
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
-import jx.lessons.firebasesmschatwithmvvm.data.utils.createDialog
-import jx.lessons.firebasesmschatwithmvvm.data.utils.toast
-import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentRandomChatBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.BaseChatFragment
+import jx.lessons.firebaseSmsChatWithMvvm.R
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.SharedPref
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.createDialog
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.toast
+import jx.lessons.firebaseSmsChatWithMvvm.databinding.FragmentRandomChatBinding
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.chatActivity.BaseChatFragment
 
 @AndroidEntryPoint
 class RandomChatFragment : BaseChatFragment<FragmentRandomChatBinding>(FragmentRandomChatBinding::inflate) {

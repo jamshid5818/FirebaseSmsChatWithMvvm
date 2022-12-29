@@ -1,20 +1,21 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.home
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.home
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.core.net.toUri
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import jx.lessons.firebasesmschatwithmvvm.R
-import jx.lessons.firebasesmschatwithmvvm.data.model.Post
-import jx.lessons.firebasesmschatwithmvvm.data.utils.addChip_home_post
-import jx.lessons.firebasesmschatwithmvvm.databinding.ItemPostsBinding
+import jx.lessons.firebaseSmsChatWithMvvm.R
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Post
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.addChip_home_post
+import jx.lessons.firebaseSmsChatWithMvvm.databinding.ItemPostsBinding
 
-class PostAdapter(var list: ArrayList<Post>,var context: Context, var listClickView: ListClickView) : RecyclerView.Adapter<PostAdapter.MyViewHolder>() {
+class PostAdapter(var list: List<Post>,var context: Context, var listClickView: ListClickView) : RecyclerView.Adapter<PostAdapter.MyViewHolder>() {
 
-    var rotationAnim = AnimationUtils.loadAnimation(context, R.anim.rotation_360)
+    var rotationAnim: Animation = AnimationUtils.loadAnimation(context, R.anim.rotation_360)
 
     inner class MyViewHolder(var binding: ItemPostsBinding):RecyclerView.ViewHolder(binding.root)   {
         fun bind(data: Post){
@@ -50,7 +51,7 @@ class PostAdapter(var list: ArrayList<Post>,var context: Context, var listClickV
                 return@setOnLongClickListener true
             }
             binding.download.setOnClickListener {
-                binding.download.startAnimation(rotationAnim)
+                binding.download.stateListAnimator
                 listClickView.downloadClicked(data.imageUri,data.unixTime.toString())
             }
             binding.imagePost.setOnClickListener {
@@ -68,10 +69,15 @@ class PostAdapter(var list: ArrayList<Post>,var context: Context, var listClickV
             data.tagsList?.forEach {
                 binding.tagChips.addChip_home_post(it)
             }
-            Glide.with(context)
-                .load(data.imageUri)
-                .placeholder(android.R.drawable.progress_indeterminate_horizontal).error(android.R.drawable.stat_notify_error)
-                .into(binding.imagePost)
+            try{
+                Glide.with(context)
+                    .load(data.imageUri)
+                    .placeholder(android.R.drawable.progress_indeterminate_horizontal).error(android.R.drawable.stat_notify_error)
+                    .into(binding.imagePost)
+            }catch(e:Exception){
+                Toast.makeText(context, "Ro'yxatdan o'ting yoki sahifani yangilang", Toast.LENGTH_SHORT).show()
+            }
+
 
         }
     }

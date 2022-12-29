@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.chatActivity
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

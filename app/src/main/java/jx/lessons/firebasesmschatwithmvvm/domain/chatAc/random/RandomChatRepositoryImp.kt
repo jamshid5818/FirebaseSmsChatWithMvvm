@@ -1,16 +1,14 @@
-package jx.lessons.firebasesmschatwithmvvm.domain.chatAc.random
+package jx.lessons.firebaseSmsChatWithMvvm.domain.chatAc.random
 
-import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
-import jx.lessons.firebasesmschatwithmvvm.data.model.Sms
-import jx.lessons.firebasesmschatwithmvvm.data.model.UserInfo
-import jx.lessons.firebasesmschatwithmvvm.data.utils.FirebaseRealtimeDatabaseConstants
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
-import jx.lessons.firebasesmschatwithmvvm.data.utils.firebasePathgmail
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Sms
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.UserInfo
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.FirebaseRealtimeDatabaseConstants
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.firebasePathgmail
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

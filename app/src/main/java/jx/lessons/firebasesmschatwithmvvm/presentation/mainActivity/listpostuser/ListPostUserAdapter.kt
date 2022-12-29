@@ -1,13 +1,13 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.listpostuser
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.listpostuser
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import jx.lessons.firebasesmschatwithmvvm.data.model.Post
-import jx.lessons.firebasesmschatwithmvvm.data.utils.addChip_home_post
-import jx.lessons.firebasesmschatwithmvvm.databinding.ItemPostsBinding
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Post
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.addChip_home_post
+import jx.lessons.firebaseSmsChatWithMvvm.databinding.ItemPostsBinding
 
 class ListPostUserAdapter(var context: Context) :RecyclerView.Adapter<ListPostUserAdapter.MyViewHolder>() {
     var list = ArrayList<Post>()

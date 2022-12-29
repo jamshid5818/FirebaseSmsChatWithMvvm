@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.chatActivity
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import jx.lessons.firebasesmschatwithmvvm.R
-import jx.lessons.firebasesmschatwithmvvm.databinding.ActivityChatBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.random.RandomChatFragment
-import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.global.GlobalChatFragment
-import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.kontakt.ContactChatFragment
+import jx.lessons.firebaseSmsChatWithMvvm.R
+import jx.lessons.firebaseSmsChatWithMvvm.databinding.ActivityChatBinding
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.chatActivity.random.RandomChatFragment
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.chatActivity.global.GlobalChatFragment
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.chatActivity.kontakt.ContactChatFragment
 
 @AndroidEntryPoint
 class ChatActivity : AppCompatActivity() {

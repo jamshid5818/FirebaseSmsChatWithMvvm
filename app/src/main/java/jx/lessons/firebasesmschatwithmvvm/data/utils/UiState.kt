@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.data.utils
+package jx.lessons.firebaseSmsChatWithMvvm.data.utils
 
 sealed class UiState<T>(
     val data: T? = null,

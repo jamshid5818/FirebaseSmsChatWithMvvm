@@ -1,20 +1,20 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import jx.lessons.firebasesmschatwithmvvm.R
-import jx.lessons.firebasesmschatwithmvvm.data.utils.SharedPref
-import jx.lessons.firebasesmschatwithmvvm.data.utils.snackbar
-import jx.lessons.firebasesmschatwithmvvm.databinding.ActivityMainBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.ChatActivity
+import jx.lessons.firebaseSmsChatWithMvvm.R
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.SharedPref
+import jx.lessons.firebaseSmsChatWithMvvm.databinding.ActivityMainBinding
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.chatActivity.ChatActivity
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -78,8 +78,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        when(id){
+        when(item.itemId){
             R.id.gotochat->{
                 val intent = Intent(this, ChatActivity::class.java)
                 startActivity(intent)

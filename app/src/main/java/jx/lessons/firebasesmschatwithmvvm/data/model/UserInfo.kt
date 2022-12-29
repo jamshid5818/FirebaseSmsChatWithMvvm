@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.data.model
+package jx.lessons.firebaseSmsChatWithMvvm.data.model
 
 class UserInfo {
     var age: Int = 0

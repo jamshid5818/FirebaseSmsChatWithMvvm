@@ -1,17 +1,18 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.home
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.home
 
 import android.app.DownloadManager
 import android.content.Context.DOWNLOAD_SERVICE
 import android.net.Uri
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.tasks.OnCompleteListener
 import dagger.hilt.android.AndroidEntryPoint
-import jx.lessons.firebasesmschatwithmvvm.data.model.Downloads
-import jx.lessons.firebasesmschatwithmvvm.data.model.Likes
-import jx.lessons.firebasesmschatwithmvvm.data.utils.*
-import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentHomeBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Downloads
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Likes
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.*
+import jx.lessons.firebaseSmsChatWithMvvm.databinding.FragmentHomeBinding
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.BaseFragment
+
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
@@ -45,8 +46,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
                 is UiState.Success->{
                     binding.swipe.isRefreshing = false
-                    adapter = state.data?.let { PostAdapter(it,requireContext(), this@HomeFragment) }!!
+                    adapter = state.data?.let { PostAdapter(state.data.reversed(), requireContext(), this@HomeFragment) }!!
                     binding.list.adapter = adapter
+
+//                    if (state.data?.isNotEmpty() == true){
+//                        adapter = PostAdapter(state.data.reversed() as ArrayList<Post>,requireContext() ,this@HomeFragment)
+//                        binding.list.adapter = adapter
+//                    }
                 }
             }
         }
@@ -74,7 +80,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     toast(state.data)
                 }
                 is UiState.Success->{
-                    toast(state.data)
+
                 }
             }
         }
@@ -94,8 +100,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     override fun clickedLike(key:String) {
-        shared.getEmail()?.let { Likes(it,System.currentTimeMillis()) }
-            ?.let { viewModel.addLike(key, it) }
+        if (shared.getEmail()!=""){
+            viewModel.addLike(key,Likes(
+                email = shared.getEmail()!!,
+                unixTime = System.currentTimeMillis()
+            ))
+        }
     }
 
     override fun clickedComment(unixTime:Long) {
@@ -103,8 +113,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     override fun doubleClickImageView(key:String) {
-        shared.getEmail()?.let { Likes(it,System.currentTimeMillis()) }
-            ?.let { viewModel.addLike(key, it) }
+        if (shared.getEmail()!=""){
+            viewModel.addLike(key,Likes(
+                email = shared.getEmail()!!,
+                unixTime = System.currentTimeMillis()
+            ))
+        }
     }
 
     override fun longClickedLike(key:String) {
@@ -119,8 +133,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             .setAllowedOverMetered(true)
         val dm = requireActivity().getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         dm.enqueue(request)
-        shared.getEmail()?.let { Downloads(it, key.toLong()) }
-            ?.let { viewModel.addDownload(key, it) }
+
+        if (shared.getEmail()!=""){
+            viewModel.addDownload(key, Downloads(
+                email = shared.getEmail()!!,
+                unixTime = System.currentTimeMillis()
+            )
+            )
+        }
     }
 
 }

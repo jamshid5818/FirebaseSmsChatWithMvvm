@@ -1,14 +1,14 @@
-package jx.lessons.firebasesmschatwithmvvm.domain.mainAc
+package jx.lessons.firebaseSmsChatWithMvvm.domain.mainAc
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import jx.lessons.firebasesmschatwithmvvm.data.model.Post
-import jx.lessons.firebasesmschatwithmvvm.data.model.UserInfo
-import jx.lessons.firebasesmschatwithmvvm.data.utils.FirebaseRealtimeDatabaseConstants
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Post
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.UserInfo
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.FirebaseRealtimeDatabaseConstants
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

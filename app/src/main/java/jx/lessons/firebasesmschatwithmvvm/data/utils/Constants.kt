@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.data.utils
+package jx.lessons.firebaseSmsChatWithMvvm.data.utils
 
 object SharedPrefConstants {
     val LOCAL_SHARED_PREF = "local_shared_pref"

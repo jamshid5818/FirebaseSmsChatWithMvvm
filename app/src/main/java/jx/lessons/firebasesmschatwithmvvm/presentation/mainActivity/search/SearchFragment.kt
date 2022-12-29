@@ -1,7 +1,7 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.search
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.search
 import dagger.hilt.android.AndroidEntryPoint
-import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentSearchBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
+import jx.lessons.firebaseSmsChatWithMvvm.databinding.FragmentSearchBinding
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.BaseFragment
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {

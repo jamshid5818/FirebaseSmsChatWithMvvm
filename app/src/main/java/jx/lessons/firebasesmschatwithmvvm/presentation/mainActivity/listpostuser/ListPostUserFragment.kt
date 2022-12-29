@@ -1,17 +1,14 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.listpostuser
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.listpostuser
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenCreated
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
-import jx.lessons.firebasesmschatwithmvvm.data.utils.getEmail
-import jx.lessons.firebasesmschatwithmvvm.data.utils.snackbar
-import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentListPostUserBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
-import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.person.PersonViewModel
-import kotlinx.coroutines.launch
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.getEmail
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.snackbar
+import jx.lessons.firebaseSmsChatWithMvvm.databinding.FragmentListPostUserBinding
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.BaseFragment
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.person.PersonViewModel
 
 @AndroidEntryPoint
 class ListPostUserFragment : BaseFragment<FragmentListPostUserBinding>(FragmentListPostUserBinding::inflate) {
@@ -26,21 +23,17 @@ class ListPostUserFragment : BaseFragment<FragmentListPostUserBinding>(FragmentL
         binding.list.adapter = adapter
     }
     private fun observer() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.whenCreated {
-                viewModel.getUserPosts.observe(viewLifecycleOwner){state->
-                    when(state){
-                        is UiState.Loading->{
+        viewModel.getUserPosts.observe(viewLifecycleOwner){state->
+            when(state){
+                is UiState.Loading->{
 
-                        }
-                        is UiState.Failure->{
-                            snackbar(state.message.toString(), binding.fullLayout)
-                        }
-                        is UiState.Success->{
-                            state.data?.let { adapter.setData(it) }
-                            binding.list.scrollToPosition(requireArguments().getInt("POSITION", 0))
-                        }
-                    }
+                }
+                is UiState.Failure->{
+                    snackbar(state.message.toString(), binding.fullLayout)
+                }
+                is UiState.Success->{
+                    state.data?.let { adapter.setData(it) }
+                    binding.list.scrollToPosition(requireArguments().getInt("POSITION", 0))
                 }
             }
         }

@@ -1,25 +1,24 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.post
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.post
 
 
 import android.app.Activity
+import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.widget.EditText
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
-import jx.lessons.firebasesmschatwithmvvm.data.utils.*
-import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentPostBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.*
+import jx.lessons.firebaseSmsChatWithMvvm.databinding.FragmentPostBinding
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
-import jx.lessons.firebasesmschatwithmvvm.R
-import jx.lessons.firebasesmschatwithmvvm.data.model.Comments
-import jx.lessons.firebasesmschatwithmvvm.data.model.Downloads
-import jx.lessons.firebasesmschatwithmvvm.data.model.Likes
-import jx.lessons.firebasesmschatwithmvvm.data.model.Post
-import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
+import jx.lessons.firebaseSmsChatWithMvvm.R
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Comments
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Downloads
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Likes
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Post
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.BaseFragment
 
 @AndroidEntryPoint
 class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::inflate) {
@@ -28,16 +27,22 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
     private val sharedPref by lazy {
         SharedPref(requireContext())
     }
-    private var imageUri: Uri? = null
+    private var imageUri: Uri ="".toUri()
     override fun onViewCreate() {
         observer()
         binding.imageView.setOnClickListener {
-            ImagePicker.with(this)
-                .compress(1024)
-                .galleryOnly()
-                .createIntent {intent->
-                    startForPostPictureResult.launch(intent)
-                }
+            val dialog = requireContext().createDialog(R.layout.dialog_goto_gallery_or_camera,true)
+            val gallery = dialog.findViewById<LinearLayoutCompat>(R.id.gallery)
+            val camera = dialog.findViewById<LinearLayoutCompat>(R.id.camera)
+            gallery.setOnClickListener {
+                ImagePicker.with(this).galleryOnly().galleryMimeTypes(arrayOf("image/*")).crop()
+                    .maxResultSize(400, 400).start()
+                dialog.dismiss()
+            }
+            camera.setOnClickListener {
+                ImagePicker.with(this).cameraOnly().crop().maxResultSize(400, 400).start()
+                dialog.dismiss()
+            }
         }
         binding.addTagImage.setOnClickListener {
             showAddTagDialog()
@@ -45,9 +50,6 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         val comments = ArrayList<Comments>()
         val likes = ArrayList<Likes>()
         val downloads= ArrayList<Downloads>()
-        comments.add(Comments(sharedPref.getEmail().toString(),"\uD83D\uDC4D\uD83D\uDC4D\uD83D\uDC4D", System.currentTimeMillis()))
-        likes.add(Likes(sharedPref.getEmail().toString(), System.currentTimeMillis()))
-        downloads.add(Downloads(sharedPref.getEmail().toString(), System.currentTimeMillis()))
         binding.publishPostBtn.setOnClickListener {
             if (validation()){
                 val unixTime = System.currentTimeMillis()
@@ -62,7 +64,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                         unixTime,
                         downloads
                     ),
-                    imageUri!!
+                    imageUri
                 )
             }
         }
@@ -85,38 +87,36 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         dialog.show()
     }
 
-    private val startForPostPictureResult =registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result:ActivityResult->
-        when (result.resultCode) {
-            Activity.RESULT_OK -> {
-                imageUri = result.data!!.data
-                Glide.with(this).load(imageUri).into(binding.imageView)
-            }
-            getStorageImage.error -> {
-                toast("${result.data}")
-            }
-            else -> {
-                Log.d("PostFragment", "Get Image Cancelled")
-            }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode== Activity.RESULT_OK && requestCode== ImagePicker.REQUEST_CODE) {
+            imageUri= data?.data!!
+            binding.imageView.setImageURI(data.data)
         }
+
     }
 
     private fun validation(): Boolean {
         var isValid = true
-        if (imageUri.toString().isEmpty()){
+        if (imageUri.toString()==""){
             isValid = false
             snackbar("You did not post a picture", binding.fullLayout)
+            return false
         }
         if (binding.description.text.toString().isEmpty()){
             isValid = false
             snackbar("Write a description", binding.fullLayout)
+            return false
         }
         if (binding.title.text.toString().isEmpty()){
             isValid = false
             snackbar("Write a Title", binding.fullLayout)
+            return false
         }
         if (tagsList.isEmpty()){
             isValid = false
             snackbar("Enter 1 or more tags", binding.fullLayout)
+            return false
         }
         return isValid
     }

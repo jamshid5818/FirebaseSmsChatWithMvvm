@@ -1,19 +1,17 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.random
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.chatActivity.random
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import jx.lessons.firebasesmschatwithmvvm.R
-import jx.lessons.firebasesmschatwithmvvm.data.model.Sms
-import jx.lessons.firebasesmschatwithmvvm.data.model.UserInfo
-import jx.lessons.firebasesmschatwithmvvm.data.utils.SharedPref
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
-import jx.lessons.firebasesmschatwithmvvm.data.utils.toast
-import jx.lessons.firebasesmschatwithmvvm.databinding.ActivitySmsBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.ChatAdapter
+import jx.lessons.firebaseSmsChatWithMvvm.R
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.UserInfo
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.SharedPref
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.toast
+import jx.lessons.firebaseSmsChatWithMvvm.databinding.ActivitySmsBinding
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.chatActivity.ChatAdapter
 
 @AndroidEntryPoint
 class SmsActivity : AppCompatActivity() {
@@ -23,7 +21,7 @@ class SmsActivity : AppCompatActivity() {
         SharedPref(this)
     }
     lateinit var adapter: ChatAdapter
-    var fireKey:String?=null
+    private var fireKey:String?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySmsBinding.inflate(layoutInflater)
@@ -43,13 +41,7 @@ class SmsActivity : AppCompatActivity() {
         binding.sendSms.setOnClickListener {
             val sms = binding.getsms.text.toString()
             if (sms.isNotEmpty()){
-                shared.getGender()
-                    ?.let { it1 -> Sms(sms, shared.getEmail()!!, it1,System.currentTimeMillis()) }
-                    ?.let { it2 ->
-                        viewModel.sendSms(fireKey!!,
-                            it2
-                        )
-                    }
+
             }
         }
     }

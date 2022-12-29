@@ -1,14 +1,14 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.chatActivity.random
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.chatActivity.random
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jx.lessons.firebasesmschatwithmvvm.data.model.Sms
-import jx.lessons.firebasesmschatwithmvvm.data.model.UserInfo
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
-import jx.lessons.firebasesmschatwithmvvm.domain.chatAc.random.RandomChatRepository
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Sms
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.UserInfo
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
+import jx.lessons.firebaseSmsChatWithMvvm.domain.chatAc.random.RandomChatRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

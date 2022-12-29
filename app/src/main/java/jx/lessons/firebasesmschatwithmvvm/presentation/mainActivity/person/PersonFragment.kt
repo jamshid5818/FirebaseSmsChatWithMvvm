@@ -1,14 +1,14 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.person
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.person
 
 import android.content.Intent
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import jx.lessons.firebasesmschatwithmvvm.R
-import jx.lessons.firebasesmschatwithmvvm.data.utils.*
-import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentPersonBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
-import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.MainActivity
+import jx.lessons.firebaseSmsChatWithMvvm.R
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.*
+import jx.lessons.firebaseSmsChatWithMvvm.databinding.FragmentPersonBinding
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.BaseFragment
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.MainActivity
 
 @AndroidEntryPoint
 class PersonFragment : BaseFragment<FragmentPersonBinding>(FragmentPersonBinding::inflate) {
@@ -51,13 +51,13 @@ class PersonFragment : BaseFragment<FragmentPersonBinding>(FragmentPersonBinding
 
                 }
                 is UiState.Failure->{
-                    snackbar(state.message.toString(), binding.fullLayout)
+                    snackbar(state.message.toString(), binding.root)
                     binding.swipe.isRefreshing=false
                 }
                 is UiState.Success->{
                     adapter =
                         PersonAdapter(
-                            state.data,
+                            state.data?.reversed(),
                             requireContext()
                         )
                     binding.gridView.adapter = adapter

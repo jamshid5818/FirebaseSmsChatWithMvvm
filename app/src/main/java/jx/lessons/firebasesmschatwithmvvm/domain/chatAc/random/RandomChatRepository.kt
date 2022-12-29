@@ -1,8 +1,8 @@
-package jx.lessons.firebasesmschatwithmvvm.domain.chatAc.random
+package jx.lessons.firebaseSmsChatWithMvvm.domain.chatAc.random
 
-import jx.lessons.firebasesmschatwithmvvm.data.model.Sms
-import jx.lessons.firebasesmschatwithmvvm.data.model.UserInfo
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Sms
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.UserInfo
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
 
 interface RandomChatRepository {
     fun findFriend(findGender:String,sharedGender:String, result: (UiState<String>) -> Unit)

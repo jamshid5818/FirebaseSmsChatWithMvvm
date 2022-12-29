@@ -1,10 +1,9 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.like
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.like
 
 
 import dagger.hilt.android.AndroidEntryPoint
-import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentLikeBinding
-import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentRegisterBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
+import jx.lessons.firebaseSmsChatWithMvvm.databinding.FragmentLikeBinding
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.BaseFragment
 
 @AndroidEntryPoint
 class LikeFragment : BaseFragment<FragmentLikeBinding>(FragmentLikeBinding::inflate) {

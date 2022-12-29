@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.listpostuser
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.listpostuser
 
 import androidx.lifecycle.ViewModel
 

@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.data.di
+package jx.lessons.firebaseSmsChatWithMvvm.data.di
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -13,7 +13,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import jx.lessons.firebasesmschatwithmvvm.data.utils.SharedPrefConstants
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.SharedPrefConstants
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)

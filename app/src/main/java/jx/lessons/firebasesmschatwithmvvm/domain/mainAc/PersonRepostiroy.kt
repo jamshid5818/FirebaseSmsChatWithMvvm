@@ -1,8 +1,8 @@
-package jx.lessons.firebasesmschatwithmvvm.domain.mainAc
+package jx.lessons.firebaseSmsChatWithMvvm.domain.mainAc
 
-import jx.lessons.firebasesmschatwithmvvm.data.model.Post
-import jx.lessons.firebasesmschatwithmvvm.data.model.UserInfo
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Post
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.UserInfo
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
 
 interface PersonRepostiroy {
     fun getPosts(emailAddress:String,result: (UiState<ArrayList<Post>>) -> Unit)

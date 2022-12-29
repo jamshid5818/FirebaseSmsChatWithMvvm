@@ -9,8 +9,18 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:src="@drawable/female_avatar"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            />
+        <ImageView
+            android:id="@+id/imageHe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/he_message"
+            android:minWidth="150dp"
+            android:minHeight="150dp"
+            android:layout_marginTop="2dp"
             />
         <TextView
             android:background="@drawable/he_meesage_bg"
@@ -20,7 +30,7 @@
             android:padding="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageHe"
             app:layout_constraintStart_toEndOf="@+id/imagePerson"
             android:text="this is my message"
             android:textColor="#FFFF" />

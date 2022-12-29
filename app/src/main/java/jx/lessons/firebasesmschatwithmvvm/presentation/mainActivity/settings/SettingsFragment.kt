@@ -1,9 +1,9 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.settings
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.settings
 
 
 import dagger.hilt.android.AndroidEntryPoint
-import jx.lessons.firebasesmschatwithmvvm.databinding.FragmentSettingsBinding
-import jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity.BaseFragment
+import jx.lessons.firebaseSmsChatWithMvvm.databinding.FragmentSettingsBinding
+import jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity.BaseFragment
 
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {

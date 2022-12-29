@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.presentation.mainActivity
+package jx.lessons.firebaseSmsChatWithMvvm.presentation.mainActivity
 
 import android.os.Bundle
 import android.view.LayoutInflater

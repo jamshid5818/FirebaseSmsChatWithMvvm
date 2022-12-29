@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.data.utils
+package jx.lessons.firebaseSmsChatWithMvvm.data.utils
 
 import android.app.Activity
 import android.app.Dialog
@@ -8,12 +8,12 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.*
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
-import jx.lessons.firebasesmschatwithmvvm.R
+import jx.lessons.firebaseSmsChatWithMvvm.R
 
 
 fun View.gone(){
@@ -75,7 +75,12 @@ fun Context.createDialog(layout: Int, cancelable: Boolean): Dialog {
     dialog.show()
     return dialog
 }
-
+fun Context.bottomSheetDialog(view: Int, activity: Activity):BottomSheetDialog{
+    val dialog = BottomSheetDialog(activity)
+    dialog.setContentView(view)
+    dialog.show()
+    return dialog
+}
 val Int.dpToPx: Int
     get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 

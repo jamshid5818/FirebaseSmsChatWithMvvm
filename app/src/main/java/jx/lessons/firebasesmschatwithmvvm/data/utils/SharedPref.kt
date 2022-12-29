@@ -1,4 +1,4 @@
-package jx.lessons.firebasesmschatwithmvvm.data.utils
+package jx.lessons.firebaseSmsChatWithMvvm.data.utils
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
@@ -25,4 +25,10 @@ class SharedPref(context: Context) {
         editor.apply()
     }
     fun getGender() = preferences.getString("PersonGender","")
+    fun senName(name: String){
+        editor = preferences.edit()
+        editor.putString("NAME",name)
+        editor.apply()
+    }
+    fun getName() = preferences.getString("NAME","")
 }

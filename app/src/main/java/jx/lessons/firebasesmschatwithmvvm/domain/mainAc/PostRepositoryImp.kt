@@ -1,15 +1,13 @@
-package jx.lessons.firebasesmschatwithmvvm.domain.mainAc
+package jx.lessons.firebaseSmsChatWithMvvm.domain.mainAc
 
 import android.net.Uri
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.StorageReference
-import jx.lessons.firebasesmschatwithmvvm.data.model.Post
-import jx.lessons.firebasesmschatwithmvvm.data.utils.UiState
-import jx.lessons.firebasesmschatwithmvvm.domain.mainAc.PostRepository
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.Post
+import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 class PostRepositoryImp @Inject constructor(
