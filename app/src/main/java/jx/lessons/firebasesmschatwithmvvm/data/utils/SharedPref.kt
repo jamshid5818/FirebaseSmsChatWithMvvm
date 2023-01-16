@@ -17,7 +17,15 @@ class SharedPref(context: Context) {
         editor.putString("PersonEmail", name)
         editor.apply()
     }
+
     fun getEmail() = preferences.getString("PersonEmail","")
+
+    fun setToken(token:String){
+        editor = preferences.edit()
+        editor.putString("TOKEN",token)
+        editor.apply()
+    }
+    fun getToken()=preferences.getString("TOKEN","")
 
     fun setGender(name:String){
         editor = preferences.edit()

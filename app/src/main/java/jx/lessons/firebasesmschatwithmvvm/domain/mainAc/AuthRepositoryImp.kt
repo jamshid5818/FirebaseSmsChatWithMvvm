@@ -68,6 +68,7 @@ class AuthRepositoryImp @Inject constructor(
     override fun loginUser(
         email: String,
         password: String,
+        token:String,
         result: (UiState<String>) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             auth.signInWithEmailAndPassword(email,password)
@@ -78,6 +79,26 @@ class AuthRepositoryImp @Inject constructor(
                             .child(firebasePathgmail(email)).child("userInfo").addValueEventListener(object :ValueEventListener{
                                 override fun onDataChange(snapshot: DataSnapshot) {
                                     val userInfo: UserInfo = snapshot.getValue(UserInfo::class.java)!!
+                                    val key = firebasePathgmail(email)
+                                    myRef.getReference(FirebaseRealtimeDatabaseConstants.path_users).child(key).child("userInfo").child("tokens").addListenerForSingleValueEvent(object :ValueEventListener{
+                                        override fun onDataChange(snapshot: DataSnapshot) {
+                                            val size = snapshot.children.count()
+                                            myRef.getReference(FirebaseRealtimeDatabaseConstants.path_users).child(key).child("userInfo").child("tokens").child(size.toString()).setValue(
+                                                token
+                                            )
+                                                .addOnSuccessListener {
+                                                    result.invoke(UiState.Success("Successfully"))
+                                                }
+                                                .addOnFailureListener {
+                                                    result.invoke(UiState.Failure(it.message))
+                                                }
+                                        }
+
+                                        override fun onCancelled(error: DatabaseError) {
+
+                                        }
+
+                                    })
                                     result.invoke(UiState.Success(userInfo.gender))
                                 }
 

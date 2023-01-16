@@ -46,13 +46,15 @@ class AuthViewModel @Inject constructor(
 
     fun login(
         email: String,
-        password: String
+        password: String,
+        token:String
     ) {
         _login.value = UiState.Loading(true)
         viewModelScope.launch(Dispatchers.Main){
             repository.loginUser(
                 email,
-                password
+                password,
+                token
             ){
                 _login.value = it
             }

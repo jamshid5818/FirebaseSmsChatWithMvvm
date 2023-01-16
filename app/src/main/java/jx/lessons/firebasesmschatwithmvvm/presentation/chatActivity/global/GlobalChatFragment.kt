@@ -56,18 +56,25 @@ class GlobalChatFragment : BaseChatFragment<FragmentGlobalChatBinding>(FragmentG
             }
         }
         binding.sendSms.setOnClickListener {
-            if (shared.getEmail()=="" && shared.getGender()==""){
+            if (shared.getEmail() == "" && shared.getGender() == "") {
                 requireActivity().finish()
                 toast("Oldin ro'yxatdan o'tgan bo'lishiz kerak")
-            }else{
-                if (binding.getSmsText.text.isNotEmpty() && binding.getSmsText.text.toString()!=""){
-                    sms= binding.getSmsText.text.toString()
-                    unixTime=System.currentTimeMillis()
-                    shared.getGender()?.let { it1 -> viewModel.sendSms(shared.getEmail()!!,sms, it1,unixTime, "".toUri()) }
+            } else {
+                if (binding.getSmsText.text.isNotEmpty() && binding.getSmsText.text.toString() != "") {
+                    sms = binding.getSmsText.text.toString()
+                    unixTime = System.currentTimeMillis()
+                    shared.getGender()?.let { it1 ->
+                        viewModel.sendSms(
+                            shared.getEmail()!!,
+                            sms,
+                            it1,
+                            unixTime,
+                            "".toUri()
+                        )
+                    }
                 }
             }
         }
-//        FirebaseMessaging.getInstance().subscribeToTopic("all")
     }
 
     private fun observer() {
@@ -100,7 +107,7 @@ class GlobalChatFragment : BaseChatFragment<FragmentGlobalChatBinding>(FragmentG
                 is UiState.Success->{
                     // 1 user notification
 
-                    val notificationsSender = FcmNotificationsSender("egO9u4zJ4FYUmA4ZUJlOgn2Dkwt2",
+                    val notificationsSender = FcmNotificationsSender("",
                     "Jamshid",
                     sms,
                     requireContext(),

@@ -7,6 +7,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
 import jx.lessons.firebaseSmsChatWithMvvm.data.model.Sms
+import jx.lessons.firebaseSmsChatWithMvvm.data.model.UserInfo
 import jx.lessons.firebaseSmsChatWithMvvm.data.utils.FirebaseRealtimeDatabaseConstants
 import jx.lessons.firebaseSmsChatWithMvvm.data.utils.UiState
 import kotlinx.coroutines.CoroutineScope
@@ -19,13 +20,32 @@ class GlobalRepositoryImp @Inject constructor(
      private val myRef: FirebaseDatabase,
      private var storageReference: StorageReference
 ) : GlobalRepository {
-    override fun sendSms(email:String,smsText:String,gender:String,unixTime:Long,imageUri: Uri,result: (UiState<String>) -> Unit) {
+    override fun sendSms(email:String,smsText:String,gender:String,unixTime:Long,imageUri: Uri,result: (UiState<ArrayList<String>>) -> Unit) {
         if (imageUri.toString()==""){
             CoroutineScope(Dispatchers.IO).launch {
                 myRef.getReference(FirebaseRealtimeDatabaseConstants.path_global).child(unixTime.toString())
                     .setValue(Sms(smsText = smsText, emailAddress = email, gender = gender, unixTime = unixTime, imageUri=imageUri.toString()))
                     .addOnSuccessListener {
-                        result.invoke(UiState.Success("true"))
+                        myRef.getReference(FirebaseRealtimeDatabaseConstants.path_users).addValueEventListener(object :ValueEventListener{
+                            val list = ArrayList<String>()
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                repeat(snapshot.children.count()) {
+                                    val data: UserInfo =
+                                        snapshot.child("userInfo").getValue(UserInfo::class.java)!!
+                                    if (data.email!=email){
+                                        data.tokens?.forEach {
+                                            list.add(it)
+                                        }
+                                    }
+                                }
+                                result.invoke(UiState.Success(list))
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+
+                            }
+
+                        })
                     }
                     .addOnFailureListener {
                         result.invoke(UiState.Failure(it.message))
@@ -47,7 +67,26 @@ class GlobalRepositoryImp @Inject constructor(
                                         smsText = smsText
                                     ))
                                     .addOnSuccessListener {
-                                        result.invoke(UiState.Success("Successfully"))
+                                        myRef.getReference(FirebaseRealtimeDatabaseConstants.path_users).addValueEventListener(object :ValueEventListener{
+                                            val list = ArrayList<String>()
+                                            override fun onDataChange(snapshot: DataSnapshot) {
+                                                repeat(snapshot.children.count()) {
+                                                    val data: UserInfo =
+                                                        snapshot.child("userInfo").getValue(UserInfo::class.java)!!
+                                                    if (data.email!=email){
+                                                        data.tokens?.forEach {
+                                                            list.add(it)
+                                                        }
+                                                    }
+                                                }
+                                                result.invoke(UiState.Success(list))
+                                            }
+
+                                            override fun onCancelled(error: DatabaseError) {
+
+                                            }
+
+                                        })
                                     }
                                     .addOnFailureListener {
                                         result.invoke(UiState.Failure(it.message))

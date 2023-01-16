@@ -29,6 +29,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         binding.spinnerAge.adapter = adapter
 
         binding.registerBtn.setOnClickListener {
+            val tokens = ArrayList<String>()
             if (validation()){
                 val unixTime=System.currentTimeMillis()
                 viewModel.register(UserInfo(
@@ -37,7 +38,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     gender = gender!!,
                     password = binding.editpasswordText.text.toString(),
                     age = binding.spinnerAge.selectedItem.toString().toInt(),
-                    unixTime = unixTime
+                    unixTime = unixTime,
+                    tokens = tokens
                 ),
                     firebasePathgmail(binding.editEmailText.text.toString())
                 )

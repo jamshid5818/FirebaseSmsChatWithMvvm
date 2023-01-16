@@ -97,7 +97,7 @@ class HomeRepositoryImp @Inject constructor(
 
     override fun plusDown(key: String, downloads: Downloads, result: (UiState<String>) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
-            var size=0
+            var size: Int
             myRef.getReference(FirebaseRealtimeDatabaseConstants.path_posts).child(key).child("downloads").addListenerForSingleValueEvent(object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     size = snapshot.children.count()

@@ -18,10 +18,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         observer()
         binding.loginBtn.setOnClickListener {
             if (validation()) {
-                viewModel.login(
-                    email = binding.emailEt.text.toString(),
-                    password = binding.passEt.text.toString()
-                )
+                shared.getToken()?.let { it1 ->
+                    viewModel.login(
+                        email = binding.emailEt.text.toString(),
+                        password = binding.passEt.text.toString(),
+                        it1
+                    )
+                }
             }
         }
         binding.forgotPassLabel.setOnClickListener {

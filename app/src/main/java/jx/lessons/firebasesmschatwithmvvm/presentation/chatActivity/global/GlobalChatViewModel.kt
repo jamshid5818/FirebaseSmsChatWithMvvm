@@ -27,8 +27,8 @@ class GlobalChatViewModel @Inject constructor(
             }
         }
     }
-    private val _sendSms = MutableLiveData<UiState<String>>()
-    val sendSms : LiveData<UiState<String>>
+    private val _sendSms = MutableLiveData<UiState<ArrayList<String>>>()
+    val sendSms : LiveData<UiState<ArrayList<String>>>
         get() = _sendSms
     fun sendSms(email:String,smsText:String,gender:String,unixTime:Long,imageUri: Uri){
         _sendSms.value=UiState.Loading(true)
